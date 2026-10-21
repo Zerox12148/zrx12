@@ -1,0 +1,2603 @@
+local _0x1475 = game:GetService("Players")
+local _0xA9C7 = game:GetService("RunService")
+local _0x7960 = game:GetService("UserInputService")
+local _0x11A7 = game:GetService("TweenService")
+local _0x21E4 = game:GetService("Debris")
+local _0xC39B = game:GetService("StarterGui")
+local _0x75FB = game:GetService("ReplicatedStorage")
+local _0x691D = _0x1475.LocalPlayer
+local _0x4106 = _0x691D:WaitForChild("PlayerGui")
+local _0x1A27 = workspace.CurrentCamera
+local _0xA462 ="Unknown"pcall(function() _0xA462 = identifyexecutor() end)
+local _0x6CE2 = pcall(function() return Drawing.new("Square") end)
+local _0xDD77 = pcall(function() return getrawmetatable(game) end)
+local _0x48F7 = pcall(function() return hookfunction end)
+local _0xEE19 = pcall(function() return newcclosure end)
+local _0x509D = pcall(function() return setreadonly end)
+local _0x16B0 = Color3.fromRGB(120, 160, 245)
+local _0x1143 = Color3.fromRGB(230, 100, 100)
+local _0xFDD5 = Color3.fromRGB(140, 200, 150)
+local _0x3913 = Color3.fromRGB(245, 190, 110)
+local _0x6CAF = {
+Accent = Color3.fromRGB(140, 120, 255),
+Accent2 = Color3.fromRGB(90, 180, 255),
+Accent3 = Color3.fromRGB(255, 120, 200),
+Success = Color3.fromRGB(120, 230, 160),
+Danger = Color3.fromRGB(255, 100, 120),
+Warn = Color3.fromRGB(255, 200, 110),
+BgDeep = Color3.fromRGB(10, 10, 16),
+BgBase = Color3.fromRGB(16, 16, 24),
+BgCard = Color3.fromRGB(22, 22, 32),
+BgHover = Color3.fromRGB(30, 30, 44),
+BgInput = Color3.fromRGB(26, 26, 38),
+Border = Color3.fromRGB(48, 48, 68),
+BorderSoft = Color3.fromRGB(38, 38, 54),
+Text = Color3.fromRGB(240, 240, 250),
+TextDim = Color3.fromRGB(160, 160, 180),
+TextFaint = Color3.fromRGB(110, 110, 130),
+}
+local _0xE18C = {
+Gui = nil, Main = nil, Pages = {}, CurrentPage ="Combat",
+NavButtons = {}, Visible = true,
+SelectedIndex = 1, NavItems = {}, NavOrder = {}, PageOrder = {},
+PageIndex = 1, SnowLayer = nil,
+}
+local _0x4E36 = {
+Aimbot = true,
+AimbotKey = true,
+AimbotMaster = true,
+AimbotSmooth = 1,
+AimbotFOV = 158.1,
+AimbotWallCheck = false,
+AimbotVisCheck = false,
+AimbotPrediction = 0.12,
+AimbotBone ="Head",
+AimbotTeamCheck = true,
+AimbotLockFull = true,
+AimbotFOVCircle = true,
+AimbotLockedTarget = nil,
+AimbotStickyRange = 9999,
+AimbotTrackSpeed = 1,
+SilentAim = true,
+SilentAimFOV = 900,
+SilentAimWallCheck = false,
+SilentAimVisCheck = false,
+SilentAimBone ="Head",
+MagicBullet = true,
+MagicBulletFOV = 1200,
+MagicBulletWall = true,
+NoRecoil = true,
+NoSpread = true,
+NoReload = true,
+RapidFire = true,
+RapidFireMulti = 5,
+InfiniteAmmo = true,
+InstantHit = true,
+Wallbang = true,
+AutoShoot = true,
+AutoShootDelay = 0.05,
+TriggerBot = false,
+TriggerBotDelay = 0.03,
+AimAssist = false,
+AimAssistStrength = 0.4,
+AimAssistFOV = 150,
+HitboxExpander = true,
+HitboxSize = 4,
+HitboxTransparency = 0.6,
+ESP = true,
+ESPBox = true,
+ESPName = true,
+ESPHealth = true,
+ESPDistance = true,
+ESPTracer = true,
+ESPSkeleton = true,
+ESPChams = true,
+ESPHeadDot = true,
+ESPTeamCheck = true,
+Radar = true,
+FOVChanger = false,
+FOVValue = 90,
+SpeedHack = false,
+SpeedValue = 30,
+InfJump = true,
+Noclip = false,
+Invisible = false,
+SpeedBoost = false,
+FallPlayer = false,
+FallDistance = 6,
+SelectActive = false,
+SnowEnabled = true,
+CurrentOutfit ="default",
+SavedOutfit = nil,
+}
+local _0xE21A = {
+ESPObjs = {},
+RadarGui = nil,
+Hitboxes = {},
+CameraHooked = false,
+FireRemote = nil,
+RemoteScanned = false,
+FOVCircle = nil,
+OriginalFOV = 70,
+SkeletonCache = {},
+ChamsCache = {},
+}
+local _0xF1D8 = nil
+local _0x0861 = nil
+local _0xCE71 = nil
+local _0x16CB = {
+INVIS_POSITION = Vector3.new(-25.95, 84, 3537.55),
+BOOSTED_SPEED = 48,
+SOUND_ID ="rbxassetid://942127495",
+}
+local _0xB686 = {
+isInvisible = false,
+isSpeedBoosted = false,
+originalSpeed = 16,
+invisChair = nil,
+sound = nil,
+}
+local _0xCC27 = {
+active = false,
+target = nil,
+cachedWeapon = nil,
+lastError = 0,
+orbitAngle = 0,
+generation = 0,
+loopRunning = false,
+override = false,
+currentSide = 1,
+lastSide = 0,
+sideTimer = 0,
+}
+local _0x30B5 = {
+active = false,
+allies = {},
+alliesIds = {},
+scannedAt = 0,
+}
+local function _0x93D3(cls, props)
+local _0x59C6 = Instance.new(cls)
+for k, _0x7D77 in pairs(props or {}) do _0x59C6[k] = _0x7D77 end
+return _0x59C6
+end
+local function _0x6EA5(p, _0xA0FD)
+return _0x93D3("UICorner", {CornerRadius = UDim.new(0, _0xA0FD or 8), Parent = p})
+end
+local function _0xFF3F(p, color, thick, trans)
+return _0x93D3("UIStroke", {
+Color = color or _0x6CAF.Border, Thickness = thick or 1,
+Transparency = trans or 0,
+ApplyStrokeMode = Enum.ApplyStrokeMode.Border, Parent = p,
+})
+end
+local function _0x016C(p, stops, rot)
+local _0x8E19 = {}
+for _, s in ipairs(stops) do
+_0x8E19[#_0x8E19+1] = ColorSequenceKeypoint.new(s[1], s[2])
+end
+return _0x93D3("UIGradient", {
+Color = ColorSequence.new(_0x8E19),
+Rotation = rot or 90, Parent = p,
+})
+end
+local function _0x2501(p)
+local _0x8C34 = (p or _0x691D).Character
+return _0x8C34 and _0x8C34:FindFirstChild("HumanoidRootPart")
+end
+local function _0x60C3(p)
+local _0x8C34 = (p or _0x691D).Character
+return _0x8C34 and _0x8C34:FindFirstChildOfClass("Humanoid")
+end
+local function _0x29D2(p)
+local _0x8C34 = (p or _0x691D).Character
+return _0x8C34 and (_0x8C34:FindFirstChild("Head") or _0x8C34:FindFirstChild("head"))
+end
+local function _0xD6A5(p)
+local _0x98D8 = _0x60C3(p)
+return _0x98D8 and _0x98D8.Health > 0
+end
+local function _0x80B6(p)
+if not p or p == _0x691D then return false end
+if not p.Character then return false end
+local _0x98D8 = p.Character:FindFirstChildOfClass("Humanoid")
+if not _0x98D8 or _0x98D8.Health <= 0 then return false end
+if not p.Character:FindFirstChild("HumanoidRootPart") then return false end
+return true
+end
+local function _0xF1A6(_0x464B, _0x210B)
+if not (_0x464B and _0x210B) then return false end
+local _0xC91C, _0x45CD = _0x464B.Team, _0x210B.Team
+if _0xC91C and _0x45CD then return _0xC91C == _0x45CD end
+return false
+end
+local function _0x38C7(target)
+if not target then return false end
+if _0x691D.Team and target.Team and _0x691D.Team == target.Team then return true end
+local _0x750B = _0x691D:GetAttribute("Team") or _0x691D:GetAttribute("team")
+local _0xBE6E = target:GetAttribute("Team") or target:GetAttribute("team")
+if _0x750B and _0xBE6E and _0x750B == _0xBE6E then return true end
+return false
+end
+local function _0x5A8F(p, bone)
+local _0x8C34 = p and p.Character
+if not _0x8C34 then return nil end
+bone = bone or"Head"local _0x210B = _0x8C34:FindFirstChild(bone)
+if _0x210B and _0x210B:IsA("BasePart") then return _0x210B end
+local _0x8D5B = {
+Head = {"Head","head"},
+Torso = {"Torso","UpperTorso","Chest"},
+HumanoidRootPart = {"HumanoidRootPart","RootPart"},
+}
+for _, _0xD3F3 in ipairs(_0x8D5B[bone] or {bone}) do
+local _0x15E4 = _0x8C34:FindFirstChild(_0xD3F3)
+if _0x15E4 and _0x15E4:IsA("BasePart") then return _0x15E4 end
+end
+return _0x2501(p)
+end
+local function _0xDFC2(target, wallCheck)
+if not wallCheck then return true end
+local _0x19D1 = _0x2501(_0x691D)
+local _0x89D9 = _0x2501(target)
+if not (_0x19D1 and _0x89D9) then return false end
+local _0x2A70 = RaycastParams.new()
+_0x2A70.FilterType = Enum.RaycastFilterType.Exclude
+_0x2A70.FilterDescendantsInstances = {_0x691D.Character, target.Character}
+local _0x40A7 = workspace:Raycast(_0x19D1.Position, _0x89D9.Position - _0x19D1.Position, _0x2A70)
+return _0x40A7 == nil
+end
+local _0x272B = {"Fire","Shoot","FireWeapon","WeaponFire","GunFire","FireGun","Attack","Hit","Damage","Bullet","FireServer","ShootServer","RemoteFire","Weapon",
+}
+local function _0x6C42()
+if _0xE21A.RemoteScanned then return end
+_0xE21A.RemoteScanned = true
+local _0x2BAE = {}
+local function _0x658A(parent, depth)
+if depth > 4 then return end
+for _, _0x8C34 in ipairs(parent:GetChildren()) do
+if _0x8C34:IsA("RemoteEvent") or _0x8C34:IsA("RemoteFunction") then
+local _0xD3F3 = _0x8C34.Name:lower()
+for _, key in ipairs(_0x272B) do
+if _0xD3F3:find(key:lower()) then
+_0x2BAE[#_0x2BAE+1] = _0x8C34
+break
+end
+end
+end
+pcall(_0x658A, _0x8C34, depth + 1)
+end
+end
+pcall(_0x658A, _0x75FB, 0)
+pcall(_0x658A, workspace, 0)
+if #_0x2BAE > 0 then
+_0xE21A.FireRemote = _0x2BAE[1]
+end
+end
+local function _0x806F()
+if not (_0xDD77 and _0x509D and _0xEE19) then return end
+if not _0xE21A.FireRemote then _0x6C42() end
+if not _0xE21A.FireRemote then return end
+local _0x6C80, _0xED05 = pcall(getrawmetatable, game)
+if not _0x6C80 or not _0xED05 then return end
+local _0x5C3B = _0xED05.__namecall
+if not _0x5C3B then return end
+pcall(setreadonly, _0xED05, false)
+_0xED05.__namecall = newcclosure(function(self, ...)
+local _0x92E0 = getnamecallmethod()
+if _0x92E0 =="FireServer"and self == _0xE21A.FireRemote then
+local _0x4A2A = {...}
+local _0xA66D = _0x4E36.MagicBullet and _0xCE71
+local _0x8E73 = _0x4E36.SilentAim and _0x0861
+local _0x37A7 = nil
+if _0xA66D then _0x37A7 = _0xCE71
+elseif _0x8E73 then _0x37A7 = _0x0861 end
+if _0x37A7 then
+local _0x084F = nil
+local _0x8A73 = nil
+for _0x59C6, _0x464B in ipairs(_0x4A2A) do
+if typeof(_0x464B) =="Vector3"then
+if _0x084F == nil then _0x084F = _0x59C6
+elseif _0x8A73 == nil then _0x8A73 = _0x59C6; break end
+end
+end
+if _0x084F and _0x8A73 then
+if _0xA66D and _0x4E36.MagicBulletWall then
+_0x4A2A[_0x084F] = _0x37A7 - Vector3.new(0, 2, 0)
+_0x4A2A[_0x8A73] = Vector3.new(0, 1, 0)
+else
+local _0xF29A = _0x4A2A[_0x084F]
+_0x4A2A[_0x8A73] = (_0x37A7 - _0xF29A).Unit * (_0x4A2A[_0x8A73].Magnitude > 0 and _0x4A2A[_0x8A73].Magnitude or 1000)
+end
+elseif _0x084F then
+_0x4A2A[_0x084F] = _0x37A7
+if _0x4A2A[_0x084F+1] and typeof(_0x4A2A[_0x084F+1]) =="Vector3"then
+_0x4A2A[_0x084F+1] = Vector3.new(0, 0, 0.01)
+end
+end
+return _0x5C3B(self, unpack(_0x4A2A))
+end
+end
+return _0x5C3B(self, ...)
+end)
+pcall(setreadonly, _0xED05, true)
+end
+local function _0x4082()
+if _0xE21A.CameraHooked then return end
+_0xE21A.CameraHooked = true
+if not (_0xDD77 and _0x509D and _0xEE19) then return end
+local _0x6C80, _0xED05 = pcall(getrawmetatable, _0x1A27)
+if not _0x6C80 or not _0xED05 then return end
+local _0x6A60 = _0xED05.__index
+if not _0x6A60 then return end
+pcall(setreadonly, _0xED05, false)
+_0xED05.__index = newcclosure(function(self, key)
+local _0x0D02 = _0x6A60(self, key)
+if key =="CFrame"then
+if _0xCC27.active and _0xCC27.target and _0xCC27.override then
+local _0xFBDB = _0x5A8F(_0xCC27.target,"Head")
+if _0xFBDB then
+return CFrame.new(_0x0D02.Position, _0xFBDB.Position)
+end
+end
+if _0x4E36.Aimbot
+and _0x4E36.AimbotMaster
+and _0x4E36.AimbotLockedTarget
+and _0x7960:IsMouseButtonPressed(Enum.UserInputType.MouseButton1)
+then
+local _0xFBDB = _0x5A8F(_0x4E36.AimbotLockedTarget, _0x4E36.AimbotBone)
+if _0xFBDB then
+local _0x37A7 = _0xFBDB.Position
+if _0x4E36.AimbotPrediction > 0 then
+local _0x4DAB = _0x2501(_0x4E36.AimbotLockedTarget)
+if _0x4DAB then
+_0x37A7 = _0x37A7 + _0x4DAB.AssemblyLinearVelocity * _0x4E36.AimbotPrediction
+end
+end
+return CFrame.new(_0x0D02.Position, _0x37A7)
+end
+end
+end
+return _0x0D02
+end)
+pcall(setreadonly, _0xED05, true)
+end
+local function _0xA2CE(pos)
+local _0xA9BE, _0xB8C1 = _0x1A27:WorldToViewportPoint(pos)
+if not _0xB8C1 then return nil end
+return Vector2.new(_0xA9BE.X, _0xA9BE.Y), _0xA9BE.Z
+end
+local function _0xCF3A(p)
+if not p then return false end
+if p == _0x691D then return true end
+if _0x30B5.allies[p.Name] then return true end
+if _0x30B5.alliesIds[p.UserId] then return true end
+return false
+end
+local function _0x05A4(maxFOV, wallCheck, visCheck, bone)
+if _0xCC27.active and _0xCC27.target and _0xCC27.override then
+local _0x0C16 = _0xCC27.target
+if _0x80B6(_0x0C16) and not _0xCF3A(_0x0C16) then
+return _0x0C16, 0
+end
+return nil, math.huge
+end
+if _0x4E36.AimbotLockedTarget and _0x80B6(_0x4E36.AimbotLockedTarget) and not _0xCF3A(_0x4E36.AimbotLockedTarget) then
+return _0x4E36.AimbotLockedTarget, 0
+end
+maxFOV = maxFOV or math.huge
+local _0x9A8D = _0x7960:GetMouseLocation()
+local _0x886C, _0xE6EA = nil, maxFOV
+for _, p in ipairs(_0x1475:GetPlayers()) do
+if _0x80B6(p) and not _0x38C7(p) and not _0xF1A6(_0x691D, p) and not _0xCF3A(p) then
+local _0x7CD1 = _0x5A8F(p, bone)
+if _0x7CD1 then
+local _0xA9BE = _0xA2CE(_0x7CD1.Position)
+if _0xA9BE then
+local _0xD99E = (_0xA9BE - _0x9A8D).Magnitude
+if _0xD99E < _0xE6EA then
+if wallCheck and not _0xDFC2(p, true) then continue end
+if visCheck and not _0xDFC2(p, true) then continue end
+_0x886C, _0xE6EA = p, _0xD99E
+end
+end
+end
+end
+end
+return _0x886C, _0xE6EA
+end
+local function _0x8CF7()
+local _0x9A8D = _0x7960:GetMouseLocation()
+local _0x886C, _0xE6EA = nil, _0x4E36.AimbotFOV
+for _, p in ipairs(_0x1475:GetPlayers()) do
+if _0x80B6(p) and not _0x38C7(p) and not _0xF1A6(_0x691D, p) and not _0xCF3A(p) then
+local _0x7CD1 = _0x5A8F(p, _0x4E36.AimbotBone)
+if _0x7CD1 then
+local _0xA9BE, _0xB8C1 = _0x1A27:WorldToViewportPoint(_0x7CD1.Position)
+if _0xB8C1 then
+local _0xD99E = (Vector2.new(_0xA9BE.X, _0xA9BE.Y) - _0x9A8D).Magnitude
+if _0xD99E < _0xE6EA then
+if _0x4E36.AimbotWallCheck and not _0xDFC2(p, true) then
+else
+_0x886C, _0xE6EA = p, _0xD99E
+end
+end
+end
+end
+end
+end
+return _0x886C
+end
+local function _0x5E59(dt)
+if _0xCC27.active and _0xCC27.target and _0xCC27.override then
+local _0x4A4A = _0xCC27.target
+if _0x80B6(_0x4A4A) and not _0xCF3A(_0x4A4A) then
+local _0xFBDB = _0x5A8F(_0x4A4A,"Head")
+if not _0xFBDB then _0xFBDB = _0x2501(_0x4A4A) end
+if _0xFBDB then
+local _0x37A7 = _0xFBDB.Position
+if _0x4E36.AimbotPrediction > 0 then
+local _0x4DAB = _0x2501(_0x4A4A)
+if _0x4DAB then
+_0x37A7 = _0x37A7 + _0x4DAB.AssemblyLinearVelocity * _0x4E36.AimbotPrediction
+end
+end
+local _0x8D3C = _0x1A27.CFrame
+local _0x83E9 = CFrame.new(_0x8D3C.Position, _0x37A7)
+_0x1A27.CFrame = _0x8D3C:Lerp(_0x83E9, 1)
+_0x4E36.AimbotLockedTarget = _0x4A4A
+_0xF1D8 = _0x4A4A
+return
+end
+end
+return
+end
+if not _0x4E36.AimbotMaster then
+_0xF1D8 = nil
+_0x4E36.AimbotLockedTarget = nil
+return
+end
+if not _0x4E36.Aimbot then
+_0x4E36.AimbotLockedTarget = nil
+return
+end
+if _0x4E36.AimbotKey and not _0x7960:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+_0xF1D8 = nil
+_0x4E36.AimbotLockedTarget = nil
+return
+end
+if _0x4E36.AimbotLockedTarget and (not _0x80B6(_0x4E36.AimbotLockedTarget) or _0xCF3A(_0x4E36.AimbotLockedTarget)) then
+_0x4E36.AimbotLockedTarget = nil
+end
+if not _0x4E36.AimbotLockedTarget or not _0x80B6(_0x4E36.AimbotLockedTarget) then
+local _0x0C16 = _0x8CF7()
+if not _0x0C16 then _0xF1D8 = nil; return end
+if _0x38C7(_0x0C16) or _0xF1A6(_0x691D, _0x0C16) or _0xCF3A(_0x0C16) then _0xF1D8 = nil; return end
+_0x4E36.AimbotLockedTarget = _0x0C16
+end
+local _0x4A4A = _0x4E36.AimbotLockedTarget
+if not _0x4A4A or not _0x80B6(_0x4A4A) or _0xCF3A(_0x4A4A) then
+_0x4E36.AimbotLockedTarget = nil
+_0xF1D8 = nil
+return
+end
+local _0x19D1 = _0x2501(_0x691D)
+local _0x89D9 = _0x2501(_0x4A4A)
+if _0x19D1 and _0x89D9 then
+if (_0x89D9.Position - _0x19D1.Position).Magnitude > _0x4E36.AimbotStickyRange then
+_0x4E36.AimbotLockedTarget = nil
+_0xF1D8 = nil
+return
+end
+end
+_0xF1D8 = _0x4A4A
+local _0xFBDB = _0x5A8F(_0x4A4A, _0x4E36.AimbotBone)
+if not _0xFBDB then _0xFBDB = _0x2501(_0x4A4A) end
+if not _0xFBDB then
+_0x4E36.AimbotLockedTarget = nil
+_0xF1D8 = nil
+return
+end
+local _0x37A7 = _0xFBDB.Position
+if _0x4E36.AimbotPrediction > 0 then
+local _0x4DAB = _0x2501(_0x4A4A)
+if _0x4DAB then
+_0x37A7 = _0x37A7 + _0x4DAB.AssemblyLinearVelocity * _0x4E36.AimbotPrediction
+end
+end
+local _0x8D3C = _0x1A27.CFrame
+local _0x83E9 = CFrame.new(_0x8D3C.Position, _0x37A7)
+_0x1A27.CFrame = _0x8D3C:Lerp(_0x83E9, 1)
+end
+pcall(function()
+_0xA9C7:UnbindFromRenderStep("RIV_Aimbot")
+_0xA9C7:BindToRenderStep("RIV_Aimbot",
+Enum.RenderPriority.Camera.Value + 1, _0x5E59)
+end)
+local function _0x1C71()
+if not _0xB686.sound then
+_0xB686.sound = Instance.new("Sound")
+_0xB686.sound.SoundId = _0x16CB.SOUND_ID
+_0xB686.sound.Volume = 0.5
+_0xB686.sound.Parent = _0x4106
+end
+pcall(function() _0xB686.sound:Play() end)
+end
+local function _0xD507(char, _0x0C16)
+for _, _0xD99E in ipairs(char:GetDescendants()) do
+if _0xD99E:IsA("BasePart") or _0xD99E:IsA("Decal") then
+pcall(function() _0xD99E.Transparency = _0x0C16 end)
+end
+end
+end
+local function _0x5F7E(state)
+if not _0x691D.Character then return end
+if state == _0xB686.isInvisible then return end
+_0xB686.isInvisible = state
+_0x1C71()
+if state then
+local _0x4DAB = _0x691D.Character:FindFirstChild("HumanoidRootPart")
+if not _0x4DAB then return end
+local _0x9824 = _0x4DAB.CFrame
+_0x691D.Character:MoveTo(_0x16CB.INVIS_POSITION)
+task.wait(0.15)
+local _0xC1E5 = Instance.new("Seat")
+_0xC1E5.Name ="invischair"_0xC1E5.Anchored = false
+_0xC1E5.CanCollide = false
+_0xC1E5.Transparency = 1
+_0xC1E5.Position = _0x16CB.INVIS_POSITION
+_0xC1E5.Parent = workspace
+local _0x2358 = _0x691D.Character:FindFirstChild("Torso")
+or _0x691D.Character:FindFirstChild("UpperTorso")
+if _0x2358 then
+local _0x63C0 = Instance.new("Weld")
+_0x63C0.Part0 = _0xC1E5
+_0x63C0.Part1 = _0x2358
+_0x63C0.Parent = _0xC1E5
+end
+task.wait()
+_0xC1E5.CFrame = _0x9824
+_0xB686.invisChair = _0xC1E5
+_0xD507(_0x691D.Character, 0.5)
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Invisibilité ON", Text ="Tu es invisible", Duration = 2,
+})
+end)
+else
+if _0xB686.invisChair then
+pcall(function() _0xB686.invisChair:Destroy() end)
+_0xB686.invisChair = nil
+end
+local _0xD0DC = workspace:FindFirstChild("invischair")
+if _0xD0DC then pcall(function() _0xD0DC:Destroy() end) end
+if _0x691D.Character then _0xD507(_0x691D.Character, 0) end
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Invisibilité OFF", Text ="Tu es visible", Duration = 2,
+})
+end)
+end
+end
+local function _0xF485(state)
+local _0x1598 = _0x60C3(_0x691D)
+if not _0x1598 then return end
+if state and not _0xB686.isSpeedBoosted then
+_0xB686.originalSpeed = _0x1598.WalkSpeed
+_0x1598.WalkSpeed = _0x16CB.BOOSTED_SPEED
+_0xB686.isSpeedBoosted = true
+_0x1C71()
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Speed Boost ON", Text ="Speed: ".. _0x16CB.BOOSTED_SPEED, Duration = 2,
+})
+end)
+elseif not state and _0xB686.isSpeedBoosted then
+_0x1598.WalkSpeed = _0xB686.originalSpeed
+_0xB686.isSpeedBoosted = false
+_0x1C71()
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Speed Boost OFF", Text ="Speed: ".. _0xB686.originalSpeed, Duration = 2,
+})
+end)
+end
+end
+local function _0x0415()
+_0x30B5.allies = {}
+_0x30B5.alliesIds = {}
+local _0x19D1 = _0x2501(_0x691D)
+if not _0x19D1 then return end
+local _0x6362 = 5
+for _, p in ipairs(_0x1475:GetPlayers()) do
+if p ~= _0x691D then
+local _0x4DAB = _0x2501(p)
+if _0x4DAB then
+local _0xD99E = (_0x4DAB.Position - _0x19D1.Position).Magnitude
+if _0xD99E <= _0x6362 then
+_0x30B5.allies[p.Name] = true
+_0x30B5.alliesIds[p.UserId] = true
+end
+end
+end
+end
+_0x30B5.scannedAt = tick()
+local _0x317E = 0
+for _ in pairs(_0x30B5.allies) do _0x317E = _0x317E + 1 end
+print("[Select] Coéquipiers scannés : ".. _0x317E)
+end
+local function _0xA7EA(p)
+if not p then return false end
+if not p.Parent then return false end
+if not p.Character then return false end
+local _0x1598 = p.Character:FindFirstChildOfClass("Humanoid")
+if not _0x1598 then return false end
+if _0x1598.Health <= 0 then return false end
+if not p.Character:FindFirstChild("HumanoidRootPart") then return false end
+return true
+end
+local function _0x0523()
+local _0x0509 = _0x691D.Character
+if not _0x0509 then return end
+local _0x1598 = _0x0509:FindFirstChildOfClass("Humanoid")
+local _0x9A7A = _0x0509:FindFirstChildOfClass("Tool")
+if _0x9A7A then
+_0xCC27.cachedWeapon = _0x9A7A
+return _0x9A7A
+end
+local _0x9F82 = _0x691D:FindFirstChild("Backpack")
+if _0x9F82 then
+for _, _0x0C16 in ipairs(_0x9F82:GetChildren()) do
+if _0x0C16:IsA("Tool") then
+pcall(function() _0x1598:EquipTool(_0x0C16) end)
+_0xCC27.cachedWeapon = _0x0C16
+return _0x0C16
+end
+end
+end
+return nil
+end
+local function _0x3F78()
+local _0x19D1 = _0x2501(_0x691D)
+if not _0x19D1 then return nil end
+local _0x886C, _0xDF8A = nil, math.huge
+for _, p in ipairs(_0x1475:GetPlayers()) do
+if p ~= _0x691D and not _0xCF3A(p) and _0xA7EA(p) then
+local _0x4DAB = _0x2501(p)
+if _0x4DAB then
+local _0xD99E = (_0x4DAB.Position - _0x19D1.Position).Magnitude
+if _0xD99E < _0xDF8A then
+_0x886C, _0xDF8A = p, _0xD99E
+end
+end
+end
+end
+return _0x886C
+end
+local function _0x706E()
+local _0xB2EC = math.random(1, 3)
+local _0x0357 = 0
+while _0xB2EC == _0xCC27.lastSide and _0x0357 < 5 do
+_0xB2EC = math.random(1, 3)
+_0x0357 = _0x0357 + 1
+end
+_0xCC27.lastSide = _0xB2EC
+return _0xB2EC
+end
+local function _0x896E(_0xB2EC, _0x52F2, _0x89D9)
+local _0x5501 = _0x89D9.CFrame.RightVector
+local _0x34C3 = _0x89D9.CFrame.LookVector
+if _0xB2EC == 1 then
+return _0x5501 * -_0x52F2
+elseif _0xB2EC == 2 then
+return _0x5501 * _0x52F2
+else
+return _0x34C3 * -_0x52F2
+end
+end
+local _0x53FD = nil
+local function _0x14B5()
+if _0x53FD then
+pcall(function() _0x53FD:Disconnect() end)
+_0x53FD = nil
+end
+_0xCC27.loopRunning = false
+_0xCC27.override = false
+_0xCC27.active = false
+_0xCC27.target = nil
+_0xCC27.sideTimer = 0
+_0x4E36.AimbotLockedTarget = nil
+_0xF1D8 = nil
+end
+local function _0x088F()
+if _0x53FD then
+pcall(function() _0x53FD:Disconnect() end)
+_0x53FD = nil
+end
+_0xCC27.generation = _0xCC27.generation + 1
+local _0xA8DA = _0xCC27.generation
+_0xCC27.loopRunning = true
+_0xCC27.active = true
+_0x53FD = _0xA9C7.RenderStepped:Connect(function(dt)
+if _0xCC27.generation ~= _0xA8DA then
+_0x14B5()
+return
+end
+if not _0x4E36.FallPlayer or not _0xCC27.active then
+_0x14B5()
+return
+end
+local _0x6C80, _0x95F3 = pcall(function()
+local _0x19D1 = _0x2501(_0x691D)
+if not _0x19D1 then
+_0xCC27.override = false
+return
+end
+if _0xCC27.target then
+if not _0xCC27.target
+or not _0xCC27.target.Parent
+or not _0xA7EA(_0xCC27.target)
+or _0xCF3A(_0xCC27.target) then
+_0xCC27.target = nil
+_0xCC27.override = false
+end
+end
+if not _0xCC27.target then
+_0xCC27.target = _0x3F78()
+_0xCC27.currentSide = _0x706E()
+_0xCC27.sideTimer = 0
+end
+local _0x0050 = _0xCC27.target
+if not _0x0050 or not _0x0050.Parent then
+_0xCC27.override = false
+return
+end
+local _0x89D9 = _0x2501(_0x0050)
+local _0xE631 = _0x5A8F(_0x0050,"Head")
+if not _0x89D9 then
+_0xCC27.target = nil
+_0xCC27.override = false
+return
+end
+_0x0523()
+_0xCC27.override = true
+_0xCC27.sideTimer = _0xCC27.sideTimer + dt
+if _0xCC27.sideTimer >= 0.08 then
+_0xCC27.currentSide = _0x706E()
+_0xCC27.sideTimer = 0
+end
+local _0x52F2 = _0x4E36.FallDistance or 6
+local _0x81C0 = _0x896E(_0xCC27.currentSide, _0x52F2, _0x89D9)
+local _0x60E6 = _0xE631 or _0x89D9
+local _0x50F1 = _0x89D9.Position + _0x89D9.AssemblyLinearVelocity * 0.04
+local _0x37A7 = _0x50F1 + _0x81C0
+_0x37A7 = Vector3.new(_0x37A7.X, _0x89D9.Position.Y + 1, _0x37A7.Z)
+pcall(function()
+_0x19D1.CFrame = CFrame.new(_0x37A7, _0x60E6.Position)
+end)
+local _0x7721 = workspace.CurrentCamera
+if _0x7721 then
+pcall(function()
+_0x7721.CFrame = CFrame.new(_0x7721.CFrame.Position, _0x60E6.Position)
+end)
+end
+_0x4E36.AimbotLockedTarget = _0x0050
+_0xF1D8 = _0x0050
+end)
+if not _0x6C80 then
+_0xCC27.target = nil
+_0xCC27.override = false
+end
+end)
+end
+local function _0x4AED()
+_0xCC27.generation = _0xCC27.generation + 1
+_0xCC27.lastError = 0
+_0xCC27.lastSide = 0
+_0xCC27.currentSide = 1
+_0xCC27.sideTimer = 0
+_0x14B5()
+_0x4E36.FallPlayer = false
+_0x4E36.AimbotLockedTarget = nil
+_0xF1D8 = nil
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Fall Player",
+Text ="FORCE RESET · erreur nettoyée",
+Duration = 2,
+})
+end)
+end
+local function _0xEC50(state)
+state = state and true or false
+if state == _0x4E36.FallPlayer and state == _0xCC27.active then return end
+_0x4E36.FallPlayer = state
+if state then
+_0xCC27.generation = _0xCC27.generation + 1
+_0xCC27.active = true
+_0xCC27.target = nil
+_0xCC27.loopRunning = false
+_0xCC27.override = false
+_0xCC27.lastSide = 0
+_0xCC27.currentSide = _0x706E()
+_0xCC27.sideTimer = 0
+_0x088F()
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Fall Player",
+Text ="ACTIVÉ",
+Duration = 2,
+})
+end)
+else
+_0xCC27.generation = _0xCC27.generation + 1
+_0x14B5()
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Fall Player",
+Text ="DÉSACTIVÉ",
+Duration = 2,
+})
+end)
+end
+end
+local function _0xF912()
+_0xEC50(not _0x4E36.FallPlayer)
+end
+local function _0xE596(state)
+if state == _0x30B5.active then return end
+_0x4E36.SelectActive = state
+if state then
+_0x30B5.active = true
+_0x0415()
+if not (_0xCC27.active and _0xCC27.override) then
+_0xF1D8 = nil
+_0x4E36.AimbotLockedTarget = nil
+end
+local _0x317E = 0
+for _ in pairs(_0x30B5.allies) do _0x317E = _0x317E + 1 end
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Select",
+Text ="ACTIVÉ · ".. _0x317E .." coéquipier(s)",
+Duration = 3,
+})
+end)
+else
+_0x30B5.active = false
+_0x30B5.allies = {}
+_0x30B5.alliesIds = {}
+if not (_0xCC27.active and _0xCC27.override) then
+_0xF1D8 = nil
+_0x4E36.AimbotLockedTarget = nil
+end
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Select",
+Text ="DÉSACTIVÉ · mémoire reset",
+Duration = 2,
+})
+end)
+end
+end
+local function _0x8F65()
+_0xE596(not _0x4E36.SelectActive)
+end
+task.spawn(function()
+while true do
+task.wait(0.5)
+if _0xCC27.override and not _0xCC27.active then
+_0xCC27.override = false
+end
+if _0xCC27.override and (not _0xCC27.target or not _0xA7EA(_0xCC27.target)) then
+_0xCC27.override = false
+end
+end
+end)
+if _0x6CE2 then
+_0xE21A.FOVCircle = Drawing.new("Circle")
+_0xE21A.FOVCircle.Thickness = 1.5
+_0xE21A.FOVCircle.Color = _0x16B0
+_0xE21A.FOVCircle.Filled = false
+_0xE21A.FOVCircle.NumSides = 60
+_0xE21A.FOVCircle.Radius = _0x4E36.AimbotFOV
+_0xE21A.FOVCircle.Visible = false
+_0xA9C7.RenderStepped:Connect(function()
+if not _0xE21A.FOVCircle then return end
+local _0x2ED7 = false
+if _0xCC27.active and _0xCC27.override then
+_0x2ED7 = false
+elseif _0x4E36.Aimbot and _0x4E36.AimbotMaster and _0x4E36.AimbotFOVCircle then
+_0x2ED7 = true
+end
+if _0x2ED7 then
+_0xE21A.FOVCircle.Visible = true
+_0xE21A.FOVCircle.Position = Vector2.new(_0x1A27.ViewportSize.X / 2, _0x1A27.ViewportSize.Y / 2)
+_0xE21A.FOVCircle.Radius = _0x4E36.AimbotFOV
+_0xE21A.FOVCircle.Color = _0x16B0
+else
+_0xE21A.FOVCircle.Visible = false
+end
+end)
+end
+task.spawn(function()
+while true do
+task.wait(_0x4E36.AutoShootDelay)
+if not _0x4E36.AutoShoot then continue end
+if not _0x4E36.AimbotMaster then continue end
+local _0x0C16 = _0x05A4(_0x4E36.AimbotFOV, _0x4E36.AimbotWallCheck, _0x4E36.AimbotVisCheck, _0x4E36.AimbotBone)
+if not _0x0C16 then continue end
+local _0x6951 = _0x691D.Character and _0x691D.Character:FindFirstChildOfClass("Tool")
+if _0x6951 then pcall(function() _0x6951:Activate() end) end
+end
+end)
+task.spawn(function()
+while true do
+task.wait(_0x4E36.TriggerBotDelay)
+if not _0x4E36.TriggerBot then continue end
+local _0x0C16 = _0x05A4(40, false, false,"Head")
+if not _0x0C16 then continue end
+local _0x6951 = _0x691D.Character and _0x691D.Character:FindFirstChildOfClass("Tool")
+if _0x6951 then pcall(function() _0x6951:Activate() end) end
+end
+end)
+_0xA9C7.RenderStepped:Connect(function()
+if not _0x4E36.AimAssist then return end
+local _0x0C16 = _0x05A4(_0x4E36.AimAssistFOV, false, false,"Head")
+if not _0x0C16 then return end
+local _0xFBDB = _0x5A8F(_0x0C16,"Head")
+if not _0xFBDB then return end
+local _0x8D3C = _0x1A27.CFrame
+local _0x83E9 = CFrame.new(_0x8D3C.Position, _0xFBDB.Position)
+_0x1A27.CFrame = _0x8D3C:Lerp(_0x83E9, _0x4E36.AimAssistStrength * 0.15)
+end)
+_0xA9C7.RenderStepped:Connect(function()
+if not _0x4E36.SilentAim then _0x0861 = nil; return end
+local _0x0C16 = _0x05A4(_0x4E36.SilentAimFOV, _0x4E36.SilentAimWallCheck, _0x4E36.SilentAimVisCheck, _0x4E36.SilentAimBone)
+if _0x0C16 then
+local _0xFBDB = _0x5A8F(_0x0C16, _0x4E36.SilentAimBone)
+if _0xFBDB then
+_0x0861 = _0xFBDB.Position
+end
+else
+_0x0861 = nil
+end
+end)
+_0xA9C7.RenderStepped:Connect(function()
+if not _0x4E36.MagicBullet then _0xCE71 = nil; return end
+local _0x0C16 = _0x05A4(_0x4E36.MagicBulletFOV, false, false,"Head")
+if _0x0C16 then
+local _0xFBDB = _0x5A8F(_0x0C16,"Head")
+if _0xFBDB then
+_0xCE71 = _0xFBDB.Position
+end
+else
+_0xCE71 = nil
+end
+end)
+local _0xE838 = {}
+local function _0xC42A(_0xDB16)
+if _0xE838[_0xDB16] then return end
+_0xE838[_0xDB16] = true
+local function _0xEF47()
+for _, prop in ipairs({"Recoil","RecoilX","RecoilY","Spread","SpreadX","SpreadY","CameraShake","Shake"}) do
+pcall(function()
+if _0xDB16[prop] ~= nil and (_0x4E36.NoRecoil or _0x4E36.NoSpread) then
+_0xDB16[prop] = 0
+end
+end)
+end
+for _, prop in ipairs({"ReloadTime","ReloadSpeed","ReloadDuration"}) do
+pcall(function()
+if _0xDB16[prop] ~= nil and _0x4E36.NoReload then _0xDB16[prop] = 0 end
+end)
+end
+for _, prop in ipairs({"FireRate","FireDelay","Cooldown","Debounce"}) do
+pcall(function()
+if _0xDB16[prop] ~= nil and _0x4E36.RapidFire then
+_0xDB16[prop] = _0xDB16[prop] / math.max(1, _0x4E36.RapidFireMulti)
+end
+end)
+end
+for _, prop in ipairs({"Ammo","MaxAmmo","ClipSize","Magazine","CurrentAmmo"}) do
+pcall(function()
+if _0xDB16[prop] ~= nil and _0x4E36.InfiniteAmmo then _0xDB16[prop] = 9999 end
+end)
+end
+end
+_0xEF47()
+pcall(function()
+_0xDB16.ChildAdded:Connect(function() task.wait(0.05); _0xEF47() end)
+_0xDB16:GetPropertyChangedSignal("Parent"):Connect(function() task.wait(0.05); _0xEF47() end)
+end)
+end
+local function _0xA528()
+pcall(function()
+for _, _0x8C34 in ipairs(_0x1A27:GetChildren()) do
+if _0x8C34.Name:lower():find("weapon") or _0x8C34.Name:lower():find("gun")
+or _0x8C34.Name:lower():find("tool") or _0x8C34.Name:lower():find("viewmodel") then
+_0xC42A(_0x8C34)
+for _, _0xD99E in ipairs(_0x8C34:GetDescendants()) do
+if _0xD99E:IsA("Model") or _0xD99E:IsA("Folder") then _0xC42A(_0xD99E) end
+end
+end
+end
+end)
+pcall(function()
+local _0x0509 = _0x691D.Character
+if _0x0509 then
+for _, _0x0C16 in ipairs(_0x0509:GetChildren()) do
+if _0x0C16:IsA("Tool") then _0xC42A(_0x0C16) end
+end
+end
+end)
+pcall(function()
+local _0x9F82 = _0x691D:FindFirstChild("Backpack")
+if _0x9F82 then
+for _, _0x0C16 in ipairs(_0x9F82:GetChildren()) do
+if _0x0C16:IsA("Tool") then _0xC42A(_0x0C16) end
+end
+end
+end)
+end
+task.spawn(function()
+while true do
+task.wait(1)
+_0xA528()
+end
+end)
+task.spawn(function()
+while true do
+task.wait(0.2)
+if _0x4E36.HitboxExpander then
+for _, p in ipairs(_0x1475:GetPlayers()) do
+if _0x80B6(p) and not _0x38C7(p) and not _0xF1A6(_0x691D, p) and not _0xCF3A(p) then
+local _0x0509 = p.Character
+if _0x0509 then
+for _, _0x7CD1 in ipairs(_0x0509:GetChildren()) do
+if _0x7CD1:IsA("BasePart")
+and (_0x7CD1.Name =="Head"or _0x7CD1.Name =="Torso"or _0x7CD1.Name =="UpperTorso"or _0x7CD1.Name =="HumanoidRootPart") then
+if not _0xE21A.Hitboxes[_0x7CD1] then
+_0xE21A.Hitboxes[_0x7CD1] = _0x7CD1.Size
+end
+pcall(function()
+_0x7CD1.Size = Vector3.new(_0x4E36.HitboxSize, _0x4E36.HitboxSize, _0x4E36.HitboxSize)
+_0x7CD1.Transparency = _0x4E36.HitboxTransparency
+_0x7CD1.CanCollide = false
+end)
+end
+end
+end
+end
+end
+else
+for _0x7CD1, sz in pairs(_0xE21A.Hitboxes) do
+if _0x7CD1 and _0x7CD1.Parent then
+pcall(function()
+_0x7CD1.Size = sz
+_0x7CD1.Transparency = 0
+end)
+end
+_0xE21A.Hitboxes[_0x7CD1] = nil
+end
+end
+end
+end)
+task.spawn(function()
+while true do
+task.wait(0.1)
+if _0x4E36.FOVChanger then
+_0x1A27.FieldOfView = _0x4E36.FOVValue
+end
+end
+end)
+task.spawn(function()
+while true do
+task.wait(0.1)
+if _0x4E36.SpeedHack then
+local _0x1598 = _0x60C3()
+if _0x1598 and _0x1598.WalkSpeed ~= _0x4E36.SpeedValue then _0x1598.WalkSpeed = _0x4E36.SpeedValue end
+end
+end
+end)
+_0xA9C7.Stepped:Connect(function()
+if not _0x4E36.Noclip then return end
+local _0x0509 = _0x691D.Character
+if not _0x0509 then return end
+for _, p in ipairs(_0x0509:GetDescendants()) do
+if p:IsA("BasePart") then
+p.CanCollide = false
+p.CanTouch = false
+p.CanQuery = false
+end
+end
+end)
+_0x691D.CharacterAdded:Connect(function(_0x0509)
+if not _0x4E36.Noclip then return end
+task.wait(0.1)
+for _, p in ipairs(_0x0509:GetDescendants()) do
+if p:IsA("BasePart") then
+p.CanCollide = false
+p.CanTouch = false
+p.CanQuery = false
+end
+end
+end)
+_0x7960.JumpRequest:Connect(function()
+if _0x4E36.InfJump then
+local _0x1598 = _0x60C3()
+if _0x1598 then pcall(function() _0x1598:ChangeState(Enum.HumanoidStateType.Jumping) end) end
+end
+end)
+_0x6C42()
+_0x806F()
+_0x4082()
+local function _0x5BE3(plr)
+if plr == _0x691D or _0xE21A.ESPObjs[plr] then return end
+if not _0x6CE2 then return end
+local _0x4A2C = Drawing.new("Square")
+_0x4A2C.Thickness = 2; _0x4A2C.Filled = false; _0x4A2C.Visible = false
+local _0x333F = Drawing.new("Square")
+_0x333F.Thickness = 4; _0x333F.Filled = false; _0x333F.Visible = false
+_0x333F.Transparency = 0.85
+local _0x4C22 = Drawing.new("Square")
+_0x4C22.Thickness = 1; _0x4C22.Filled = true; _0x4C22.Visible = false
+_0x4C22.Color = Color3.fromRGB(0, 0, 0); _0x4C22.Transparency = 0.4
+local _0xB706 = Drawing.new("Text")
+_0xB706.Center = true; _0xB706.Outline = true; _0xB706.Size = 15; _0xB706.Visible = false
+_0xB706.Font = 2
+local _0x52F2 = Drawing.new("Text")
+_0x52F2.Center = true; _0x52F2.Outline = true; _0x52F2.Size = 13; _0x52F2.Visible = false
+_0x52F2.Font = 2
+local _0x84F2 = Drawing.new("Square")
+_0x84F2.Thickness = 1; _0x84F2.Filled = true; _0x84F2.Visible = false
+_0x84F2.Color = Color3.fromRGB(20, 20, 30); _0x84F2.Transparency = 0.15
+local _0x3835 = Drawing.new("Square")
+_0x3835.Thickness = 1; _0x3835.Filled = true; _0x3835.Visible = false
+_0x3835.Color = Color3.fromRGB(120, 230, 160)
+local _0x60B5 = Drawing.new("Line")
+_0x60B5.Thickness = 1.5; _0x60B5.Visible = false
+local _0xE569 = Drawing.new("Circle")
+_0xE569.Thickness = 2; _0xE569.Filled = true
+_0xE569.NumSides = 16; _0xE569.Radius = 5; _0xE569.Visible = false
+local _0x3B9F = Drawing.new("Square")
+_0x3B9F.Thickness = 1; _0x3B9F.Filled = true
+_0x3B9F.Color = _0x6CAF.Accent; _0x3B9F.Transparency = 0.78; _0x3B9F.Visible = false
+local _0x1A7E = Drawing.new("Line")
+_0x1A7E.Thickness = 2; _0x1A7E.Visible = false
+local _0x7EF5 = Drawing.new("Line")
+_0x7EF5.Thickness = 2; _0x7EF5.Visible = false
+local _0x4DCD = Drawing.new("Line")
+_0x4DCD.Thickness = 2; _0x4DCD.Visible = false
+local _0x163F = Drawing.new("Line")
+_0x163F.Thickness = 2; _0x163F.Visible = false
+_0xE21A.ESPObjs[plr] = {
+Box = _0x4A2C, BoxGlow = _0x333F,
+NameBg = _0x4C22, Name = _0xB706,
+Dist = _0x52F2, HPBarBg = _0x84F2, HPBar = _0x3835,
+Tracer = _0x60B5, HeadDot = _0xE569, Chams = _0x3B9F,
+Corner1 = _0x1A7E, Corner2 = _0x7EF5,
+Corner3 = _0x4DCD, Corner4 = _0x163F,
+}
+end
+local function _0x5BDA(plr)
+local _0xDBF2 = _0xE21A.ESPObjs[plr]
+if _0xDBF2 then
+for _, _0xD99E in pairs(_0xDBF2) do pcall(function() _0xD99E:Remove() end) end
+_0xE21A.ESPObjs[plr] = nil
+end
+end
+local function _0x98ED(_0xDBF2)
+pcall(function()
+_0xDBF2.Box.Visible = false; _0xDBF2.BoxGlow.Visible = false
+_0xDBF2.NameBg.Visible = false; _0xDBF2.Name.Visible = false
+_0xDBF2.Dist.Visible = false; _0xDBF2.HPBarBg.Visible = false
+_0xDBF2.HPBar.Visible = false; _0xDBF2.Tracer.Visible = false
+_0xDBF2.HeadDot.Visible = false; _0xDBF2.Chams.Visible = false
+_0xDBF2.Corner1.Visible = false; _0xDBF2.Corner2.Visible = false
+_0xDBF2.Corner3.Visible = false; _0xDBF2.Corner4.Visible = false
+end)
+end
+for _, p in ipairs(_0x1475:GetPlayers()) do _0x5BE3(p) end
+_0x1475.PlayerAdded:Connect(function(p) task.wait(1); if p and p.Parent then _0x5BE3(p) end end)
+_0x1475.PlayerRemoving:Connect(function(p) _0x5BDA(p) end)
+_0xA9C7.RenderStepped:Connect(function()
+if not _0x6CE2 then return end
+if not _0x4E36.ESP then
+for _, _0xDBF2 in pairs(_0xE21A.ESPObjs) do _0x98ED(_0xDBF2) end
+return
+end
+local _0x7721 = workspace.CurrentCamera
+if not _0x7721 then return end
+local _0x19D1 = _0x2501(_0x691D)
+local _0xFCF8 = _0x19D1 and _0x19D1.Position
+for plr, _0xDBF2 in pairs(_0xE21A.ESPObjs) do
+local _0x6C80 = pcall(function() return _0xDBF2.Box.Visible end)
+if not _0x6C80 then _0xE21A.ESPObjs[plr] = nil; continue end
+if not _0x80B6(plr) or _0x38C7(plr) or _0xF1A6(_0x691D, plr) or _0xCF3A(plr) then
+_0x98ED(_0xDBF2)
+continue
+end
+local _0x0509 = plr.Character
+local _0x4DAB = _0x0509 and _0x0509:FindFirstChild("HumanoidRootPart")
+local _0xFBDB = _0x0509 and _0x0509:FindFirstChild("Head")
+local _0x1598 = _0x0509 and _0x0509:FindFirstChildOfClass("Humanoid")
+if not (_0x4DAB and _0xFBDB and _0x1598 and _0x1598.Health > 0) then
+_0x98ED(_0xDBF2)
+continue
+end
+local _0xA028, _0xE644 = _0x7721:WorldToViewportPoint(_0xFBDB.Position + Vector3.new(0, 0.5, 0))
+local _0x4387, _0x0649 = _0x7721:WorldToViewportPoint(_0x4DAB.Position - Vector3.new(0, 3, 0))
+if not (_0xE644 or _0x0649) then
+_0x98ED(_0xDBF2)
+continue
+end
+local _0x98D8 = math.abs(_0xA028.Y - _0x4387.Y)
+local _0xDB16 = _0x98D8 / 2
+local _0x7715 = _0xA028.X - _0xDB16 / 2
+local _0xFF06 = _0xA028.Y
+local _0xB5A5 = _0x6CAF.Danger
+if _0x4E36.ESPChams then
+pcall(function()
+_0xDBF2.Chams.Size = Vector2.new(_0xDB16 + 8, _0x98D8 + 8)
+_0xDBF2.Chams.Position = Vector2.new(_0x7715 - 4, _0xFF06 - 4)
+_0xDBF2.Chams.Color = Color3.fromHSV((tick() * 0.3) % 1, 0.6, 1)
+_0xDBF2.Chams.Visible = true
+end)
+else pcall(function() _0xDBF2.Chams.Visible = false end) end
+if _0x4E36.ESPBox then
+pcall(function()
+_0xDBF2.BoxGlow.Size = Vector2.new(_0xDB16 + 4, _0x98D8 + 4)
+_0xDBF2.BoxGlow.Position = Vector2.new(_0x7715 - 2, _0xFF06 - 2)
+_0xDBF2.BoxGlow.Color = Color3.fromHSV((tick() * 0.4) % 1, 1, 1)
+_0xDBF2.BoxGlow.Visible = true
+_0xDBF2.Box.Size = Vector2.new(_0xDB16, _0x98D8)
+_0xDBF2.Box.Position = Vector2.new(_0x7715, _0xFF06)
+_0xDBF2.Box.Color = _0xB5A5
+_0xDBF2.Box.Visible = true
+end)
+local _0x59E0 = _0xDB16 * 0.25
+pcall(function()
+_0xDBF2.Corner1.From = Vector2.new(_0x7715, _0xFF06)
+_0xDBF2.Corner1.To = Vector2.new(_0x7715 + _0x59E0, _0xFF06)
+_0xDBF2.Corner1.Color = _0xB5A5
+_0xDBF2.Corner1.Visible = true
+_0xDBF2.Corner2.From = Vector2.new(_0x7715, _0xFF06)
+_0xDBF2.Corner2.To = Vector2.new(_0x7715, _0xFF06 + _0x59E0)
+_0xDBF2.Corner2.Color = _0xB5A5
+_0xDBF2.Corner2.Visible = true
+_0xDBF2.Corner3.From = Vector2.new(_0x7715 + _0xDB16, _0xFF06 + _0x98D8)
+_0xDBF2.Corner3.To = Vector2.new(_0x7715 + _0xDB16 - _0x59E0, _0xFF06 + _0x98D8)
+_0xDBF2.Corner3.Color = _0xB5A5
+_0xDBF2.Corner3.Visible = true
+_0xDBF2.Corner4.From = Vector2.new(_0x7715 + _0xDB16, _0xFF06 + _0x98D8)
+_0xDBF2.Corner4.To = Vector2.new(_0x7715 + _0xDB16, _0xFF06 + _0x98D8 - _0x59E0)
+_0xDBF2.Corner4.Color = _0xB5A5
+_0xDBF2.Corner4.Visible = true
+end)
+else
+pcall(function()
+_0xDBF2.Box.Visible = false
+_0xDBF2.BoxGlow.Visible = false
+_0xDBF2.Corner1.Visible = false; _0xDBF2.Corner2.Visible = false
+_0xDBF2.Corner3.Visible = false; _0xDBF2.Corner4.Visible = false
+end)
+end
+if _0x4E36.ESPName then
+local _0xF5AE = plr.Name
+pcall(function()
+_0xDBF2.Name.Text = _0xF5AE
+_0xDBF2.Name.Position = Vector2.new(_0xA028.X, _0xFF06 - 22)
+_0xDBF2.Name.Color = _0x6CAF.Text
+_0xDBF2.Name.Visible = true
+_0xDBF2.NameBg.Size = Vector2.new(_0xDB16 + 30, 18)
+_0xDBF2.NameBg.Position = Vector2.new(_0xA028.X - (_0xDB16 + 30) / 2, _0xFF06 - 28)
+_0xDBF2.NameBg.Color = Color3.fromRGB(0, 0, 0)
+_0xDBF2.NameBg.Visible = true
+end)
+else
+pcall(function()
+_0xDBF2.Name.Visible = false
+_0xDBF2.NameBg.Visible = false
+end)
+end
+if _0x4E36.ESPHealth then
+local _0xA8A7 = math.clamp(_0x1598.Health / _0x1598.MaxHealth, 0, 1)
+local _0x6850 = _0x7715 - 8
+local _0x0393 = _0xFF06
+local _0x4145 = 4
+local _0x35D4 = _0x98D8
+pcall(function()
+_0xDBF2.HPBarBg.Size = Vector2.new(_0x4145 + 2, _0x35D4 + 2)
+_0xDBF2.HPBarBg.Position = Vector2.new(_0x6850 - 1, _0x0393 - 1)
+_0xDBF2.HPBarBg.Color = Color3.fromRGB(20, 20, 30)
+_0xDBF2.HPBarBg.Visible = true
+_0xDBF2.HPBar.Size = Vector2.new(_0x4145, _0x35D4 * _0xA8A7)
+_0xDBF2.HPBar.Position = Vector2.new(_0x6850, _0x0393 + _0x35D4 * (1 - _0xA8A7))
+if _0xA8A7 > 0.6 then
+_0xDBF2.HPBar.Color = Color3.fromRGB(120, 230, 160)
+elseif _0xA8A7 > 0.3 then
+_0xDBF2.HPBar.Color = Color3.fromRGB(255, 200, 110)
+else
+_0xDBF2.HPBar.Color = Color3.fromRGB(255, 100, 120)
+end
+_0xDBF2.HPBar.Visible = true
+end)
+else
+pcall(function()
+_0xDBF2.HPBar.Visible = false
+_0xDBF2.HPBarBg.Visible = false
+end)
+end
+if _0x4E36.ESPDistance and _0xFCF8 then
+pcall(function()
+local _0xD99E = (_0x4DAB.Position - _0xFCF8).Magnitude
+_0xDBF2.Dist.Text = string.format("[%.0fm]", _0xD99E)
+_0xDBF2.Dist.Position = Vector2.new(_0xA028.X, _0xFF06 + _0x98D8 + 4)
+_0xDBF2.Dist.Color = _0x6CAF.TextDim
+_0xDBF2.Dist.Visible = true
+end)
+else pcall(function() _0xDBF2.Dist.Visible = false end) end
+if _0x4E36.ESPTracer then
+pcall(function()
+_0xDBF2.Tracer.From = Vector2.new(_0x7721.ViewportSize.X / 2, _0x7721.ViewportSize.Y)
+_0xDBF2.Tracer.To = Vector2.new(_0xA028.X, _0xA028.Y)
+_0xDBF2.Tracer.Color = _0xB5A5
+_0xDBF2.Tracer.Visible = true
+end)
+else pcall(function() _0xDBF2.Tracer.Visible = false end) end
+if _0x4E36.ESPHeadDot then
+pcall(function()
+_0xDBF2.HeadDot.Position = Vector2.new(_0xA028.X, _0xA028.Y)
+_0xDBF2.HeadDot.Color = _0x6CAF.Warn
+_0xDBF2.HeadDot.Visible = true
+end)
+else pcall(function() _0xDBF2.HeadDot.Visible = false end) end
+end
+end)
+local _0x3499 = {
+{"Head","UpperTorso"}, {"UpperTorso","LowerTorso"},
+{"UpperTorso","LeftUpperArm"}, {"LeftUpperArm","LeftLowerArm"},
+{"LeftLowerArm","LeftHand"}, {"UpperTorso","RightUpperArm"},
+{"RightUpperArm","RightLowerArm"}, {"RightLowerArm","RightHand"},
+{"LowerTorso","LeftUpperLeg"}, {"LeftUpperLeg","LeftLowerLeg"},
+{"LeftLowerLeg","LeftFoot"}, {"LowerTorso","RightUpperLeg"},
+{"RightUpperLeg","RightLowerLeg"}, {"RightLowerLeg","RightFoot"},
+}
+local _0xD333 = {}
+local function _0x7400(plr)
+if _0xD333[plr] then return _0xD333[plr] end
+if not _0x6CE2 then return nil end
+local _0x8FEE = {}
+for _0x59C6 = 1, #_0x3499 do
+local _0x93EB = Drawing.new("Line")
+_0x93EB.Thickness = 1.5; _0x93EB.Visible = false
+_0x93EB.Color = _0x6CAF.Accent
+_0x8FEE[_0x59C6] = _0x93EB
+end
+_0xD333[plr] = _0x8FEE
+return _0x8FEE
+end
+_0xA9C7.RenderStepped:Connect(function()
+if not _0x6CE2 then return end
+if not (_0x4E36.ESP and _0x4E36.ESPSkeleton) then
+for _, _0x8FEE in pairs(_0xD333) do
+for _, _0x93EB in ipairs(_0x8FEE) do pcall(function() _0x93EB.Visible = false end) end
+end
+return
+end
+local _0x7721 = workspace.CurrentCamera
+if not _0x7721 then return end
+for plr, _ in pairs(_0xE21A.ESPObjs) do
+if _0x80B6(plr) and not _0x38C7(plr) and not _0xF1A6(_0x691D, plr) and not _0xCF3A(plr) then
+local _0x8FEE = _0x7400(plr)
+if _0x8FEE then
+local _0x0509 = plr.Character
+for _0x59C6, pair in ipairs(_0x3499) do
+local _0x464B = _0x0509:FindFirstChild(pair[1])
+local _0x210B = _0x0509:FindFirstChild(pair[2])
+if _0x464B and _0x210B and _0x464B:IsA("BasePart") and _0x210B:IsA("BasePart") then
+local _0x3215, _0x0AB2 = _0x7721:WorldToViewportPoint(_0x464B.Position)
+local _0x9F82, _0x4ABB = _0x7721:WorldToViewportPoint(_0x210B.Position)
+if _0x0AB2 and _0x4ABB then
+pcall(function()
+_0x8FEE[_0x59C6].From = Vector2.new(_0x3215.X, _0x3215.Y)
+_0x8FEE[_0x59C6].To = Vector2.new(_0x9F82.X, _0x9F82.Y)
+_0x8FEE[_0x59C6].Color = Color3.fromHSV((tick() * 0.3 + _0x59C6 * 0.05) % 1, 0.7, 1)
+_0x8FEE[_0x59C6].Visible = true
+end)
+else
+pcall(function() _0x8FEE[_0x59C6].Visible = false end)
+end
+else
+pcall(function() _0x8FEE[_0x59C6].Visible = false end)
+end
+end
+end
+else
+local _0x8FEE = _0xD333[plr]
+if _0x8FEE then
+for _, _0x93EB in ipairs(_0x8FEE) do pcall(function() _0x93EB.Visible = false end) end
+end
+end
+end
+end)
+local function _0x2DBD()
+if _0xE21A.RadarGui and _0xE21A.RadarGui.Parent then return end
+local _0x3DD9 = _0x93D3("ScreenGui", {
+Name ="ZeyRadar", ResetOnSpawn = false,
+IgnoreGuiInset = true, DisplayOrder = 998, Parent = _0x4106,
+})
+_0xE21A.RadarGui = _0x3DD9
+local _0x65D3 = _0x93D3("Frame", {
+Size = UDim2.new(0, 200, 0, 200),
+Position = UDim2.new(1, -220, 0, 20),
+BackgroundColor3 = _0x6CAF.BgBase, BackgroundTransparency = 0.15,
+BorderSizePixel = 0, Parent = _0x3DD9,
+})
+_0x6EA5(_0x65D3, 14)
+_0xFF3F(_0x65D3, _0x6CAF.Border, 1, 0.3)
+_0x016C(_0x65D3, {{0, _0x6CAF.BgBase}, {1, _0x6CAF.BgDeep}}, 135)
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, 0, 0, 22), Position = UDim2.new(0, 0, 0, 6),
+BackgroundTransparency = 1, Text ="RADAR",
+TextColor3 = _0x6CAF.Accent, Font = Enum.Font.GothamBold, TextSize = 11,
+Parent = _0x65D3,
+})
+local _0x2A75 = _0x93D3("Frame", {
+Size = UDim2.new(0, 6, 0, 6),
+Position = UDim2.new(0.5, -3, 0.5, -3),
+BackgroundColor3 = _0x6CAF.Accent, BorderSizePixel = 0, Parent = _0x65D3,
+})
+_0x6EA5(_0x2A75, 3)
+_0xFF3F(_0x2A75, _0x6CAF.Accent2, 1, 0)
+local _0x3407 = _0x93D3("Frame", {
+Size = UDim2.new(0, 120, 0, 120),
+Position = UDim2.new(0.5, -60, 0.5, -60),
+BackgroundTransparency = 1, BorderSizePixel = 0, Parent = _0x65D3,
+})
+_0x6EA5(_0x3407, 60)
+_0xFF3F(_0x3407, _0x6CAF.BorderSoft, 1, 0.5)
+for _0x59C6 = 1, 3 do
+_0x93D3("Frame", {
+Size = UDim2.new(0, 1, 1, -30),
+Position = UDim2.new(_0x59C6/4, 0, 0, 24),
+BackgroundColor3 = _0x6CAF.BorderSoft,
+BackgroundTransparency = 0.6,
+BorderSizePixel = 0, Parent = _0x65D3,
+})
+end
+for _0x59C6 = 1, 3 do
+_0x93D3("Frame", {
+Size = UDim2.new(1, -20, 0, 1),
+Position = UDim2.new(0, 10, _0x59C6/4, 18),
+BackgroundColor3 = _0x6CAF.BorderSoft,
+BackgroundTransparency = 0.6,
+BorderSizePixel = 0, Parent = _0x65D3,
+})
+end
+task.spawn(function()
+while _0x3DD9.Parent do
+task.wait(0.1)
+for _, _0x8C34 in ipairs(_0x65D3:GetChildren()) do
+if _0x8C34:IsA("Frame") and _0x8C34 ~= _0x2A75 and _0x8C34 ~= _0x3407
+and _0x8C34.BackgroundTransparency ~= 0.6 then
+_0x8C34:Destroy()
+end
+end
+if _0x4E36.Radar then
+local _0x19D1 = _0x2501(_0x691D)
+if _0x19D1 then
+for _, p in ipairs(_0x1475:GetPlayers()) do
+if _0x80B6(p) and not _0x38C7(p) and not _0xF1A6(_0x691D, p) and not _0xCF3A(p) then
+local _0x4DAB = _0x2501(p)
+if _0x4DAB then
+local _0xEB3F = _0x4DAB.Position - _0x19D1.Position
+local _0x120D = 180 / 300
+local _0x15E4 = math.clamp(100 + _0xEB3F.X * _0x120D, 6, 194)
+local _0xAAC1 = math.clamp(100 + _0xEB3F.Z * _0x120D, 26, 194)
+local _0xA7DC = _0x93D3("Frame", {
+Size = UDim2.new(0, 6, 0, 6),
+Position = UDim2.new(0, _0x15E4, 0, _0xAAC1),
+BackgroundColor3 = _0x6CAF.Danger,
+BorderSizePixel = 0, Parent = _0x65D3,
+})
+_0x6EA5(_0xA7DC, 3)
+_0xFF3F(_0xA7DC, _0x6CAF.Danger, 1, 0.5)
+end
+end
+end
+end
+end
+end
+end)
+end
+local function _0x0ADA(parent)
+local _0x909B = _0x93D3("Frame", {
+Size = UDim2.new(1, 0, 1, 0),
+BackgroundTransparency = 1, ClipsDescendants = true,
+ZIndex = 5, Parent = parent,
+})
+_0x6EA5(_0x909B, 16)
+_0xE18C.SnowLayer = _0x909B
+task.spawn(function()
+while _0x909B and _0x909B.Parent do
+if _0x4E36.SnowEnabled then
+local _0x2164 = math.random(2, 5)
+local _0x15E4 = math.random(0, math.max(1, math.floor(_0x909B.AbsoluteSize.X)))
+local _0x1062 = math.random(4, 9) + math.random()
+local _0xE7A7 = _0x93D3("Frame", {
+Size = UDim2.new(0, _0x2164, 0, _0x2164),
+Position = UDim2.new(0, _0x15E4, 0, -10),
+BackgroundColor3 = Color3.fromRGB(240, 240, 255),
+BackgroundTransparency = 0.35 + math.random() * 0.4,
+BorderSizePixel = 0, ZIndex = 6, Parent = _0x909B,
+})
+_0x6EA5(_0xE7A7, _0x2164)
+local _0x3D84 = math.random(-30, 30)
+local _0xDB81 = _0x11A7:Create(_0xE7A7, TweenInfo.new(_0x1062, Enum.EasingStyle.Linear), {
+Position = UDim2.new(0, _0x15E4 + _0x3D84, 1, 10),
+BackgroundTransparency = 1,
+})
+_0xDB81:Play()
+_0xDB81.Completed:Connect(function()
+if _0xE7A7 and _0xE7A7.Parent then _0xE7A7:Destroy() end
+end)
+end
+task.wait(0.08)
+end
+end)
+end
+local function _0xC5F8(parent, label, pageId, _0xF864)
+local _0x715E = _0x93D3("TextButton", {
+Size = UDim2.new(1, 0, 0, 38), BackgroundColor3 = _0x6CAF.BgCard,
+BackgroundTransparency = 1, BorderSizePixel = 0, Text ="",
+AutoButtonColor = false, LayoutOrder = _0xF864, Parent = parent,
+})
+_0x6EA5(_0x715E, 10)
+local _0xB283 = _0x93D3("Frame", {
+Size = UDim2.new(0, 3, 0, 0), Position = UDim2.new(0, 0, 0.5, 0),
+AnchorPoint = Vector2.new(0, 0.5), BackgroundColor3 = _0x6CAF.Accent,
+BorderSizePixel = 0, Parent = _0x715E,
+})
+_0x6EA5(_0xB283, 2)
+local _0x1274 = _0x93D3("TextLabel", {
+Size = UDim2.new(1, -20, 1, 0), Position = UDim2.new(0, 16, 0, 0),
+BackgroundTransparency = 1, Text = label, TextColor3 = _0x6CAF.TextDim,
+Font = Enum.Font.GothamMedium, TextSize = 12,
+TextXAlignment = Enum.TextXAlignment.Left, Parent = _0x715E,
+})
+local function _0x7111(active)
+if active then
+_0x11A7:Create(_0x715E, TweenInfo.new(0.25), {BackgroundTransparency = 0.7}):Play()
+_0x11A7:Create(_0xB283, TweenInfo.new(0.3, Enum.EasingStyle.Back), {Size = UDim2.new(0, 3, 0, 22)}):Play()
+_0x11A7:Create(_0x1274, TweenInfo.new(0.2), {TextColor3 = _0x6CAF.Accent}):Play()
+else
+_0x11A7:Create(_0x715E, TweenInfo.new(0.2), {BackgroundTransparency = 1}):Play()
+_0x11A7:Create(_0xB283, TweenInfo.new(0.2), {Size = UDim2.new(0, 3, 0, 0)}):Play()
+_0x11A7:Create(_0x1274, TweenInfo.new(0.2), {TextColor3 = _0x6CAF.TextDim}):Play()
+end
+end
+_0x715E.MouseEnter:Connect(function()
+if _0xE18C.CurrentPage ~= pageId then
+_0x11A7:Create(_0x715E, TweenInfo.new(0.15), {BackgroundTransparency = 0.85}):Play()
+_0x11A7:Create(_0x1274, TweenInfo.new(0.15), {TextColor3 = _0x6CAF.Text}):Play()
+end
+end)
+_0x715E.MouseLeave:Connect(function()
+if _0xE18C.CurrentPage ~= pageId then
+_0x11A7:Create(_0x715E, TweenInfo.new(0.15), {BackgroundTransparency = 1}):Play()
+_0x11A7:Create(_0x1274, TweenInfo.new(0.15), {TextColor3 = _0x6CAF.TextDim}):Play()
+end
+end)
+_0x715E.MouseButton1Click:Connect(function()
+_0xE18C.CurrentPage = pageId
+for _0xEF30, fn in pairs(_0xE18C.NavButtons) do fn(_0xEF30 == pageId) end
+for _0xB706, pg in pairs(_0xE18C.Pages) do pg.frame.Visible = (_0xB706 == pageId) end
+end)
+_0xE18C.NavButtons[pageId] = _0x7111
+_0xE18C.NavOrder[#_0xE18C.NavOrder+1] = {_0x715E = _0x715E, _0xDFCA = pageId}
+return _0x715E
+end
+local function _0x6375(parent, _0xF864, text)
+local _0x98D8 = _0x93D3("Frame", {
+Size = UDim2.new(1, 0, 0, 26),
+BackgroundTransparency = 1, LayoutOrder = _0xF864, Parent = parent,
+})
+local _0xA7DC = _0x93D3("Frame", {
+Size = UDim2.new(0, 6, 0, 6), Position = UDim2.new(0, 2, 0.5, 0),
+AnchorPoint = Vector2.new(0, 0.5), BackgroundColor3 = _0x6CAF.Accent,
+BorderSizePixel = 0, Parent = _0x98D8,
+})
+_0x6EA5(_0xA7DC, 3)
+_0xFF3F(_0xA7DC, _0x6CAF.Accent2, 1, 0)
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, 0, 1, 0), Position = UDim2.new(0, 16, 0, 0),
+BackgroundTransparency = 1, Text = string.upper(text), TextColor3 = _0x6CAF.TextFaint,
+Font = Enum.Font.GothamBold, TextSize = 10,
+TextXAlignment = Enum.TextXAlignment.Left, Parent = _0x98D8,
+})
+_0x93D3("Frame", {
+Size = UDim2.new(1, -20, 0, 1), Position = UDim2.new(0, 16, 1, -1),
+BackgroundColor3 = _0x6CAF.BorderSoft, BackgroundTransparency = 0.4,
+BorderSizePixel = 0, Parent = _0x98D8,
+})
+end
+local function _0x81DB(parent, _0xF864, label, _0x6276, getter, setter)
+local _0xE996 = _0x93D3("TextButton", {
+Size = UDim2.new(1, 0, 0, 52), BackgroundColor3 = _0x6CAF.BgCard,
+BackgroundTransparency = 0.15, BorderSizePixel = 0, Text ="",
+AutoButtonColor = false, LayoutOrder = _0xF864, Parent = parent,
+})
+_0x6EA5(_0xE996, 12)
+_0xFF3F(_0xE996, _0x6CAF.BorderSoft, 1, 0.3)
+local _0x180C = _0x93D3("Frame", {
+Size = UDim2.new(0, 3, 0, 28), Position = UDim2.new(0, 14, 0.5, 0),
+AnchorPoint = Vector2.new(0, 0.5),
+BackgroundColor3 = getter() and _0x6CAF.Accent or _0x6CAF.TextFaint,
+BorderSizePixel = 0, Parent = _0xE996,
+})
+_0x6EA5(_0x180C, 2)
+if getter() then _0x016C(_0x180C, {{0, _0x6CAF.Accent}, {1, _0x6CAF.Accent2}}, 0) end
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, -100, 0, 16), Position = UDim2.new(0, 28, 0, 8),
+BackgroundTransparency = 1, Text = label, TextColor3 = _0x6CAF.Text,
+Font = Enum.Font.GothamBold, TextSize = 13,
+TextXAlignment = Enum.TextXAlignment.Left, Parent = _0xE996,
+})
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, -100, 0, 14), Position = UDim2.new(0, 28, 0, 26),
+BackgroundTransparency = 1, Text = _0x6276 or"", TextColor3 = _0x6CAF.TextFaint,
+Font = Enum.Font.Gotham, TextSize = 10,
+TextXAlignment = Enum.TextXAlignment.Left, Parent = _0xE996,
+})
+local _0xE822 = _0x93D3("Frame", {
+Size = UDim2.new(0, 38, 0, 20), Position = UDim2.new(1, -52, 0.5, 0),
+AnchorPoint = Vector2.new(0, 0.5),
+BackgroundColor3 = getter() and _0x6CAF.Accent or _0x6CAF.Border,
+BorderSizePixel = 0, Parent = _0xE996,
+})
+_0x6EA5(_0xE822, 10)
+local _0x0E5E = _0x93D3("Frame", {
+Size = UDim2.new(0, 16, 0, 16),
+Position = getter() and UDim2.new(1, -18, 0.5, 0) or UDim2.new(0, 2, 0.5, 0),
+AnchorPoint = Vector2.new(0, 0.5),
+BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+BorderSizePixel = 0, Parent = _0xE822,
+})
+_0x6EA5(_0x0E5E, 8)
+local function _0x95DF()
+local _0xB8C1 = getter()
+_0x180C.BackgroundColor3 = _0xB8C1 and _0x6CAF.Accent or _0x6CAF.TextFaint
+_0x11A7:Create(_0xE822, TweenInfo.new(0.2), {
+BackgroundColor3 = _0xB8C1 and _0x6CAF.Accent or _0x6CAF.Border,
+}):Play()
+_0x11A7:Create(_0x0E5E, TweenInfo.new(0.25, Enum.EasingStyle.Back), {
+Position = _0xB8C1 and UDim2.new(1, -18, 0.5, 0) or UDim2.new(0, 2, 0.5, 0),
+}):Play()
+end
+_0xE996.MouseEnter:Connect(function()
+_0x11A7:Create(_0xE996, TweenInfo.new(0.15), {BackgroundColor3 = _0x6CAF.BgHover, BackgroundTransparency = 0.05}):Play()
+end)
+_0xE996.MouseLeave:Connect(function()
+_0x11A7:Create(_0xE996, TweenInfo.new(0.15), {BackgroundColor3 = _0x6CAF.BgCard, BackgroundTransparency = 0.15}):Play()
+end)
+_0xE996.MouseButton1Click:Connect(function()
+setter(not getter())
+_0x95DF()
+end)
+_0xE18C.NavItems[#_0xE18C.NavItems+1] = {
+_0xE996 = _0xE996, _0x95DF = _0x95DF, setter = setter, getter = getter,
+}
+return _0xE996
+end
+local function _0xDDC2(parent, _0xF864, label, minV, maxV, getter, setter)
+local _0xE996 = _0x93D3("Frame", {
+Size = UDim2.new(1, 0, 0, 52), BackgroundColor3 = _0x6CAF.BgCard,
+BackgroundTransparency = 0.15, BorderSizePixel = 0,
+LayoutOrder = _0xF864, Parent = parent,
+})
+_0x6EA5(_0xE996, 12)
+_0xFF3F(_0xE996, _0x6CAF.BorderSoft, 1, 0.3)
+_0x93D3("TextLabel", {
+Size = UDim2.new(0, 160, 0, 14), Position = UDim2.new(0, 20, 0, 8),
+BackgroundTransparency = 1, Text = label, TextColor3 = _0x6CAF.TextDim,
+Font = Enum.Font.GothamBold, TextSize = 10,
+TextXAlignment = Enum.TextXAlignment.Left, Parent = _0xE996,
+})
+local _0x0D02 = _0x93D3("TextLabel", {
+Size = UDim2.new(0, 80, 0, 14), Position = UDim2.new(1, -90, 0, 8),
+BackgroundTransparency = 1, Text = tostring(getter()),
+TextColor3 = _0x6CAF.Accent, Font = Enum.Font.GothamBold, TextSize = 11,
+TextXAlignment = Enum.TextXAlignment.Right, Parent = _0xE996,
+})
+local _0x4F99 = _0x93D3("Frame", {
+Size = UDim2.new(1, -48, 0, 6), Position = UDim2.new(0, 24, 0, 34),
+BackgroundColor3 = _0x6CAF.BorderSoft, BorderSizePixel = 0, Parent = _0xE996,
+})
+_0x6EA5(_0x4F99, 3)
+local _0xA8A7 = math.clamp((getter() - minV) / (maxV - minV), 0, 1)
+local _0x1CB6 = _0x93D3("Frame", {
+Size = UDim2.new(_0xA8A7, 0, 1, 0),
+BackgroundColor3 = _0x6CAF.Accent, BorderSizePixel = 0, Parent = _0x4F99,
+})
+_0x6EA5(_0x1CB6, 3)
+_0x016C(_0x1CB6, {{0, _0x6CAF.Accent}, {1, _0x6CAF.Accent2}}, 0)
+local _0x0E5E = _0x93D3("Frame", {
+Size = UDim2.new(0, 14, 0, 14), Position = UDim2.new(_0xA8A7, 0, 0.5, 0),
+AnchorPoint = Vector2.new(0.5, 0.5),
+BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+BorderSizePixel = 0, Parent = _0x4F99,
+})
+_0x6EA5(_0x0E5E, 7)
+_0xFF3F(_0x0E5E, _0x6CAF.Accent, 2, 0)
+local _0xE254 = _0x93D3("TextButton", {
+Size = UDim2.new(1, -48, 0, 24), Position = UDim2.new(0, 24, 0, 20),
+BackgroundTransparency = 1, Text ="",
+AutoButtonColor = false, Parent = _0xE996,
+})
+local _0x87CC = false
+local function _0xEF47(xAbs)
+local _0x426A = _0x4F99.AbsolutePosition.X
+local _0xDB81 = _0x4F99.AbsoluteSize.X
+if _0xDB81 <= 0 then return end
+local _0xA0FD = math.clamp((xAbs - _0x426A) / _0xDB81, 0, 1)
+local _0x7D77 = minV + _0xA0FD * (maxV - minV)
+_0x7D77 = math.floor(_0x7D77 * 10 + 0.5) / 10
+setter(_0x7D77)
+_0x0E5E.Position = UDim2.new(_0xA0FD, 0, 0.5, 0)
+_0x1CB6.Size = UDim2.new(_0xA0FD, 0, 1, 0)
+_0x0D02.Text = tostring(_0x7D77)
+end
+_0xE254.InputBegan:Connect(function(input)
+if input.UserInputType == Enum.UserInputType.MouseButton1
+or input.UserInputType == Enum.UserInputType.Touch then
+_0x87CC = true; _0xEF47(input.Position.X)
+end
+end)
+_0xE254.InputChanged:Connect(function(input)
+if _0x87CC and (input.UserInputType == Enum.UserInputType.MouseMovement
+or input.UserInputType == Enum.UserInputType.Touch) then
+_0xEF47(input.Position.X)
+end
+end)
+_0x7960.InputEnded:Connect(function(input)
+if input.UserInputType == Enum.UserInputType.MouseButton1
+or input.UserInputType == Enum.UserInputType.Touch then
+_0x87CC = false
+end
+end)
+_0xE18C.NavItems[#_0xE18C.NavItems+1] = {
+_0xE996 = _0xE996,
+step = function(dir)
+local _0x7D77 = getter() + dir * ((maxV - minV) / 20)
+_0x7D77 = math.clamp(_0x7D77, minV, maxV)
+_0x7D77 = math.floor(_0x7D77 * 10 + 0.5) / 10
+setter(_0x7D77)
+local _0xA0FD = (_0x7D77 - minV) / (maxV - minV)
+_0x0E5E.Position = UDim2.new(_0xA0FD, 0, 0.5, 0)
+_0x1CB6.Size = UDim2.new(_0xA0FD, 0, 1, 0)
+_0x0D02.Text = tostring(_0x7D77)
+end,
+}
+return _0xE996
+end
+local function _0x434A(parent, _0xF864, label, _0x6276, color, onClick)
+local _0xE996 = _0x93D3("TextButton", {
+Size = UDim2.new(1, 0, 0, 52), BackgroundColor3 = _0x6CAF.BgCard,
+BackgroundTransparency = 0.15, BorderSizePixel = 0, Text ="",
+AutoButtonColor = false, LayoutOrder = _0xF864, Parent = parent,
+})
+_0x6EA5(_0xE996, 12)
+_0xFF3F(_0xE996, _0x6CAF.BorderSoft, 1, 0.3)
+local _0x180C = _0x93D3("Frame", {
+Size = UDim2.new(0, 3, 0, 28), Position = UDim2.new(0, 14, 0.5, 0),
+AnchorPoint = Vector2.new(0, 0.5),
+BackgroundColor3 = color or _0x6CAF.Accent,
+BorderSizePixel = 0, Parent = _0xE996,
+})
+_0x6EA5(_0x180C, 2)
+local _0x1274 = _0x93D3("TextLabel", {
+Size = UDim2.new(1, -60, 0, 16), Position = UDim2.new(0, 28, 0, 8),
+BackgroundTransparency = 1, Text = label, TextColor3 = _0x6CAF.Text,
+Font = Enum.Font.GothamBold, TextSize = 13,
+TextXAlignment = Enum.TextXAlignment.Left, Parent = _0xE996,
+})
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, -60, 0, 14), Position = UDim2.new(0, 28, 0, 26),
+BackgroundTransparency = 1, Text = _0x6276 or"", TextColor3 = _0x6CAF.TextFaint,
+Font = Enum.Font.Gotham, TextSize = 10,
+TextXAlignment = Enum.TextXAlignment.Left, Parent = _0xE996,
+})
+_0xE996.MouseEnter:Connect(function()
+_0x11A7:Create(_0xE996, TweenInfo.new(0.15), {BackgroundColor3 = _0x6CAF.BgHover, BackgroundTransparency = 0.05}):Play()
+_0x11A7:Create(_0x1274, TweenInfo.new(0.15), {TextColor3 = color or _0x6CAF.Accent}):Play()
+end)
+_0xE996.MouseLeave:Connect(function()
+_0x11A7:Create(_0xE996, TweenInfo.new(0.15), {BackgroundColor3 = _0x6CAF.BgCard, BackgroundTransparency = 0.15}):Play()
+_0x11A7:Create(_0x1274, TweenInfo.new(0.15), {TextColor3 = _0x6CAF.Text}):Play()
+end)
+_0xE996.MouseButton1Click:Connect(onClick)
+_0xE18C.NavItems[#_0xE18C.NavItems+1] = {
+_0xE996 = _0xE996,
+action = function() onClick() end,
+}
+return _0xE996
+end
+local function _0xD5E0(parent)
+local _0x04FF = _0x93D3("Frame", {
+Size = UDim2.new(1, 0, 1, 0),
+BackgroundColor3 = _0x6CAF.BgDeep,
+BorderSizePixel = 0, ZIndex = 1, Parent = parent,
+})
+_0x6EA5(_0x04FF, 16)
+local _0x3DD9 = _0x016C(_0x04FF, {
+{0, _0x6CAF.BgDeep},
+{0.5, Color3.fromRGB(20, 18, 32)},
+{1, _0x6CAF.BgDeep},
+}, 45)
+local _0x2E4A = {}
+for _0x59C6 = 1, 4 do
+local _0x6317 = _0x93D3("Frame", {
+Size = UDim2.new(0, 220, 0, 220),
+Position = UDim2.new(math.random(), 0, math.random(), 0),
+BackgroundColor3 = (_0x59C6 % 2 == 0) and _0x6CAF.Accent or _0x6CAF.Accent2,
+BackgroundTransparency = 0.85,
+BorderSizePixel = 0, ZIndex = 2, Parent = _0x04FF,
+})
+_0x6EA5(_0x6317, 110)
+_0x016C(_0x6317, {{0, _0x6CAF.Accent}, {1, _0x6CAF.Accent2}}, 0)
+table.insert(_0x2E4A, _0x6317)
+end
+task.spawn(function()
+while _0x04FF.Parent do
+task.wait(0.016)
+for _0x59C6, _0x6317 in ipairs(_0x2E4A) do
+local _0x0C16 = tick() * 0.3 + _0x59C6 * 1.5
+local _0x15E4 = 0.5 + math.sin(_0x0C16) * 0.35
+local _0xEE5B = 0.5 + math.cos(_0x0C16 * 0.8) * 0.35
+pcall(function()
+_0x6317.Position = UDim2.new(_0x15E4, -110, _0xEE5B, -110)
+end)
+end
+pcall(function() _0x3DD9.Rotation = (tick() * 20) % 360 end)
+end
+end)
+local _0x17C4 = _0x93D3("Frame", {
+Size = UDim2.new(1, 0, 1, 0),
+BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+BackgroundTransparency = 0.35,
+BorderSizePixel = 0, ZIndex = 3, Parent = _0x04FF,
+})
+_0x6EA5(_0x17C4, 16)
+return _0x04FF
+end
+local _0x5A06 = {
+{_0xB706 ="Default", userId = 1},
+{_0xB706 ="Noob", userId = 261},
+{_0xB706 ="Builderman", userId = 156},
+{_0xB706 ="Shedletsky", userId = 261},
+{_0xB706 ="Pink Girl", userId = 124322466},
+{_0xB706 ="Red Ninja", userId = 19578790},
+{_0xB706 ="Black Suit", userId = 7},
+}
+local function _0xFFF2(userId)
+pcall(function()
+local _0x6276 = _0x1475:GetHumanoidDescriptionFromUserId(userId)
+local _0x1598 = _0x60C3(_0x691D)
+if _0x1598 and _0x6276 then
+_0x1598:ApplyDescription(_0x6276)
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Outfit",
+Text ="Tenue appliquée (ID: ".. userId ..")",
+Duration = 2,
+})
+end)
+end
+end)
+end
+local function _0x8F0C()
+pcall(function()
+local _0xDF7A = _0x691D.UserId
+local _0x6276 = _0x1475:GetHumanoidDescriptionFromUserId(_0xDF7A)
+local _0x1598 = _0x60C3(_0x691D)
+if _0x1598 and _0x6276 then
+_0x1598:ApplyDescription(_0x6276)
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Outfit",
+Text ="Tenue d'origine restaurée",
+Duration = 2,
+})
+end)
+end
+end)
+end
+local function _0x05D2()
+pcall(function()
+local _0x1598 = _0x60C3(_0x691D)
+if _0x1598 then
+_0x4E36.SavedOutfit = _0x1598:GetAppliedDescription()
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Outfit",
+Text ="Tenue sauvegardée",
+Duration = 2,
+})
+end)
+end
+end)
+end
+local function _0x28D4()
+if not _0x4E36.SavedOutfit then
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Outfit",
+Text ="Aucune tenue sauvegardée",
+Duration = 2,
+})
+end)
+return
+end
+pcall(function()
+local _0x1598 = _0x60C3(_0x691D)
+if _0x1598 then
+_0x1598:ApplyDescription(_0x4E36.SavedOutfit)
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Outfit",
+Text ="Tenue sauvegardée appliquée",
+Duration = 2,
+})
+end)
+end
+end)
+end
+local function _0x01BA(inputText)
+local _0xEF30 = tonumber(inputText)
+if not _0xEF30 then
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Outfit",
+Text ="ID invalide",
+Duration = 2,
+})
+end)
+return
+end
+_0xFFF2(_0xEF30)
+end
+local function _0x1C26()
+local _0x0015 = _0x93D3("ScreenGui", {
+Name ="ZeyProject", ResetOnSpawn = false, IgnoreGuiInset = true,
+ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+DisplayOrder = 999, Parent = _0x4106,
+})
+_0xE18C.Gui = _0x0015
+local _0xA794 = _0x93D3("Frame", {
+Size = UDim2.new(0, 0, 0, 0),
+Position = UDim2.new(0.5, 0, 0.5, 0),
+AnchorPoint = Vector2.new(0.5, 0.5),
+BackgroundColor3 = _0x6CAF.BgBase, BorderSizePixel = 0,
+Active = true, Draggable = true, ClipsDescendants = true,
+Parent = _0x0015,
+})
+_0x6EA5(_0xA794, 16)
+_0xFF3F(_0xA794, _0x6CAF.Border, 1.2, 0.2)
+_0xE18C.Main = _0xA794
+_0xD5E0(_0xA794)
+_0x0ADA(_0xA794)
+local _0xB2EC = _0x93D3("Frame", {
+Size = UDim2.new(0, 210, 1, 0),
+BackgroundColor3 = _0x6CAF.BgBase, BackgroundTransparency = 0.3,
+BorderSizePixel = 0, ZIndex = 10, Parent = _0xA794,
+})
+_0x6EA5(_0xB2EC, 16)
+_0xFF3F(_0xB2EC, _0x6CAF.BorderSoft, 1, 0.5)
+local _0xA6EF = _0x93D3("Frame", {
+Size = UDim2.new(1, 0, 0, 78),
+BackgroundTransparency = 1, ZIndex = 11, Parent = _0xB2EC,
+})
+local _0x3094 = _0x93D3("Frame", {
+Size = UDim2.new(0, 42, 0, 42), Position = UDim2.new(0, 18, 0, 18),
+BackgroundColor3 = _0x6CAF.Accent, BorderSizePixel = 0,
+ZIndex = 12, Parent = _0xA6EF,
+})
+_0x6EA5(_0x3094, 12)
+_0x016C(_0x3094, {{0, _0x6CAF.Accent}, {1, _0x6CAF.Accent2}}, 45)
+_0xFF3F(_0x3094, _0x6CAF.Accent3, 1, 0.4)
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, 0, 1, 0), BackgroundTransparency = 1,
+Text ="Z", TextColor3 = Color3.fromRGB(255, 255, 255),
+Font = Enum.Font.GothamBlack, TextSize = 22, ZIndex = 13, Parent = _0x3094,
+})
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, -80, 0, 20), Position = UDim2.new(0, 70, 0, 20),
+BackgroundTransparency = 1, Text ="ZeyProject",
+TextColor3 = _0x6CAF.Text, Font = Enum.Font.GothamBlack, TextSize = 17,
+TextXAlignment = Enum.TextXAlignment.Left, ZIndex = 12, Parent = _0xA6EF,
+})
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, -80, 0, 14), Position = UDim2.new(0, 70, 0, 40),
+BackgroundTransparency = 1, Text ="Roblox Edition · ".. _0xA462,
+TextColor3 = _0x6CAF.TextFaint, Font = Enum.Font.Gotham, TextSize = 10,
+TextXAlignment = Enum.TextXAlignment.Left, ZIndex = 12, Parent = _0xA6EF,
+})
+local _0xB01E = _0x93D3("Frame", {
+Size = UDim2.new(1, -36, 0, 1), Position = UDim2.new(0, 18, 0, 78),
+BackgroundColor3 = _0x6CAF.BorderSoft, BackgroundTransparency = 0.4,
+BorderSizePixel = 0, ZIndex = 11, Parent = _0xB2EC,
+})
+_0x016C(_0xB01E, {{0, _0x6CAF.Accent}, {1, _0x6CAF.Accent2}}, 0)
+local _0xD019 = _0x93D3("ScrollingFrame", {
+Size = UDim2.new(1, -20, 1, -160), Position = UDim2.new(0, 10, 0, 90),
+BackgroundTransparency = 1, BorderSizePixel = 0,
+ScrollBarThickness = 2, ScrollBarImageColor3 = _0x6CAF.Accent,
+ScrollBarImageTransparency = 0.6,
+CanvasSize = UDim2.new(0, 0, 0, 0),
+AutomaticCanvasSize = Enum.AutomaticSize.Y,
+ScrollingDirection = Enum.ScrollingDirection.Y,
+ZIndex = 12, Parent = _0xB2EC,
+})
+_0x93D3("UIListLayout", {
+Padding = UDim.new(0, 4),
+SortOrder = Enum.SortOrder.LayoutOrder, Parent = _0xD019,
+})
+local _0x4FFC = _0x93D3("Frame", {
+Size = UDim2.new(1, -20, 0, 50), Position = UDim2.new(0, 10, 1, -60),
+BackgroundColor3 = _0x6CAF.BgCard, BackgroundTransparency = 0.4,
+BorderSizePixel = 0, ZIndex = 12, Parent = _0xB2EC,
+})
+_0x6EA5(_0x4FFC, 10)
+_0xFF3F(_0x4FFC, _0x6CAF.BorderSoft, 1, 0.5)
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, 0, 0, 16), Position = UDim2.new(0, 0, 0, 8),
+BackgroundTransparency = 1, Text ="ZEYPROJECT v1.1",
+TextColor3 = _0x6CAF.Accent, Font = Enum.Font.GothamBold, TextSize = 10,
+ZIndex = 13, Parent = _0x4FFC,
+})
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, 0, 0, 12), Position = UDim2.new(0, 0, 0, 26),
+BackgroundTransparency = 1, Text ="Y invis · I infjump · N select · B fall · C reset",
+TextColor3 = _0x6CAF.TextFaint, Font = Enum.Font.Gotham, TextSize = 9,
+ZIndex = 13, Parent = _0x4FFC,
+})
+local _0x24DA = _0x93D3("Frame", {
+Size = UDim2.new(1, -230, 1, -40), Position = UDim2.new(0, 220, 0, 20),
+BackgroundTransparency = 1, ZIndex = 15, Parent = _0xA794,
+})
+local function _0x40A1(_0xEF30, title)
+local _0x926B = _0x93D3("ScrollingFrame", {
+Size = UDim2.new(1, 0, 1, 0),
+BackgroundTransparency = 1, BorderSizePixel = 0,
+ScrollBarThickness = 4, ScrollBarImageColor3 = _0x6CAF.Accent,
+ScrollBarImageTransparency = 0.4,
+CanvasSize = UDim2.new(0, 0, 0, 0),
+AutomaticCanvasSize = Enum.AutomaticSize.Y,
+ScrollingDirection = Enum.ScrollingDirection.Y,
+Visible = false, ZIndex = 15, Parent = _0x24DA,
+})
+local _0xDE97 = _0x93D3("Frame", {
+Size = UDim2.new(1, 0, 0, 34), BackgroundTransparency = 1,
+LayoutOrder = 0, ZIndex = 16, Parent = _0x926B,
+})
+local _0x114B = _0x93D3("Frame", {
+Size = UDim2.new(0, 4, 0, 22), Position = UDim2.new(0, 0, 0, 4),
+BackgroundColor3 = _0x6CAF.Accent, BorderSizePixel = 0,
+ZIndex = 17, Parent = _0xDE97,
+})
+_0x6EA5(_0x114B, 2)
+_0x016C(_0x114B, {{0, _0x6CAF.Accent}, {1, _0x6CAF.Accent2}}, 90)
+_0x93D3("TextLabel", {
+Size = UDim2.new(1, -20, 1, 0), Position = UDim2.new(0, 14, 0, 0),
+BackgroundTransparency = 1, Text = title, TextColor3 = _0x6CAF.Text,
+Font = Enum.Font.GothamBold, TextSize = 20,
+TextXAlignment = Enum.TextXAlignment.Left,
+ZIndex = 17, Parent = _0xDE97,
+})
+local _0xB7FA = _0x93D3("Frame", {
+Size = UDim2.new(1, -20, 0, 0), Position = UDim2.new(0, 0, 0, 44),
+BackgroundTransparency = 1, AutomaticSize = Enum.AutomaticSize.Y,
+ZIndex = 16, Parent = _0x926B,
+})
+_0x93D3("UIListLayout", {
+Padding = UDim.new(0, 8),
+SortOrder = Enum.SortOrder.LayoutOrder, Parent = _0xB7FA,
+})
+_0xE18C.Pages[_0xEF30] = {_0x65D3 = _0x926B, _0xB7FA = _0xB7FA}
+_0xE18C.PageOrder[#_0xE18C.PageOrder+1] = _0xEF30
+return _0xB7FA
+end
+local _0xF864 = 0
+local function _0xBD85() _0xF864 = _0xF864 + 1; return _0xF864 end
+_0xC5F8(_0xD019,"Combat","Combat", _0xBD85())
+_0xC5F8(_0xD019,"ESP","ESP", _0xBD85())
+_0xC5F8(_0xD019,"New","New", _0xBD85())
+_0xC5F8(_0xD019,"Outfit","Outfit", _0xBD85())
+_0xC5F8(_0xD019,"Misc","Misc", _0xBD85())
+local _0xF243 = _0x40A1("Combat","Combat")
+local _0x1DD9 = 0
+local function _0xB202() _0x1DD9 = _0x1DD9 + 1; return _0x1DD9 end
+_0x6375(_0xF243, _0xB202(),"Aimbot")
+_0x81DB(_0xF243, _0xB202(),"Aimbot","Lock plein sur la tête",
+function() return _0x4E36.Aimbot end, function(_0x7D77) _0x4E36.Aimbot = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Aimbot Key (LMB)","Lock uniquement clic gauche maintenu",
+function() return _0x4E36.AimbotKey end, function(_0x7D77) _0x4E36.AimbotKey = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Aimbot Master (U)","Touche U : active/désactive l'aimbot",
+function() return _0x4E36.AimbotMaster end, function(_0x7D77) _0x4E36.AimbotMaster = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Lock Full","Lock instantané (pas de smooth)",
+function() return _0x4E36.AimbotLockFull end, function(_0x7D77) _0x4E36.AimbotLockFull = _0x7D77 end)
+_0xDDC2(_0xF243, _0xB202(),"Smooth", 0.05, 1.1,
+function() return _0x4E36.AimbotSmooth end, function(_0x7D77) _0x4E36.AimbotSmooth = _0x7D77 end)
+_0xDDC2(_0xF243, _0xB202(),"FOV", 50, 1500,
+function() return _0x4E36.AimbotFOV end, function(_0x7D77) _0x4E36.AimbotFOV = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Wall Check","Pas à travers les murs",
+function() return _0x4E36.AimbotWallCheck end, function(_0x7D77) _0x4E36.AimbotWallCheck = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Vis Check","Vérifie la ligne de vue",
+function() return _0x4E36.AimbotVisCheck end, function(_0x7D77) _0x4E36.AimbotVisCheck = _0x7D77 end)
+_0xDDC2(_0xF243, _0xB202(),"Prediction", 0, 0.5,
+function() return _0x4E36.AimbotPrediction end, function(_0x7D77) _0x4E36.AimbotPrediction = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Team Check","Ignore les alliés",
+function() return _0x4E36.AimbotTeamCheck end, function(_0x7D77) _0x4E36.AimbotTeamCheck = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"FOV Circle","Affiche le cercle de FOV",
+function() return _0x4E36.AimbotFOVCircle end, function(_0x7D77) _0x4E36.AimbotFOVCircle = _0x7D77 end)
+_0x6375(_0xF243, _0xB202(),"Silent Aim")
+_0x81DB(_0xF243, _0xB202(),"Silent Aim","Vise silencieusement",
+function() return _0x4E36.SilentAim end, function(_0x7D77) _0x4E36.SilentAim = _0x7D77 end)
+_0xDDC2(_0xF243, _0xB202(),"Silent FOV", 100, 1500,
+function() return _0x4E36.SilentAimFOV end, function(_0x7D77) _0x4E36.SilentAimFOV = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Silent Wall Check","Pas à travers les murs",
+function() return _0x4E36.SilentAimWallCheck end, function(_0x7D77) _0x4E36.SilentAimWallCheck = _0x7D77 end)
+_0x6375(_0xF243, _0xB202(),"Magic Bullet")
+_0x81DB(_0xF243, _0xB202(),"Magic Bullet","Redirige les balles vers la tête",
+function() return _0x4E36.MagicBullet end, function(_0x7D77) _0x4E36.MagicBullet = _0x7D77 end)
+_0xDDC2(_0xF243, _0xB202(),"Magic FOV", 100, 2000,
+function() return _0x4E36.MagicBulletFOV end, function(_0x7D77) _0x4E36.MagicBulletFOV = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Wallbang","Tire à travers les murs",
+function() return _0x4E36.MagicBulletWall end, function(_0x7D77) _0x4E36.MagicBulletWall = _0x7D77 end)
+_0x6375(_0xF243, _0xB202(),"Armes")
+_0x81DB(_0xF243, _0xB202(),"No Recoil","Supprime le recul",
+function() return _0x4E36.NoRecoil end, function(_0x7D77) _0x4E36.NoRecoil = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"No Spread","Supprime la dispersion",
+function() return _0x4E36.NoSpread end, function(_0x7D77) _0x4E36.NoSpread = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"No Reload","Recharge instantanée",
+function() return _0x4E36.NoReload end, function(_0x7D77) _0x4E36.NoReload = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Rapid Fire","Tire plus vite",
+function() return _0x4E36.RapidFire end, function(_0x7D77) _0x4E36.RapidFire = _0x7D77 end)
+_0xDDC2(_0xF243, _0xB202(),"Rapid Multi", 1, 10,
+function() return _0x4E36.RapidFireMulti end, function(_0x7D77) _0x4E36.RapidFireMulti = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Infinite Ammo","Munitions infinies",
+function() return _0x4E36.InfiniteAmmo end, function(_0x7D77) _0x4E36.InfiniteAmmo = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Instant Hit","Balles instantanées",
+function() return _0x4E36.InstantHit end, function(_0x7D77) _0x4E36.InstantHit = _0x7D77 end)
+_0x6375(_0xF243, _0xB202(),"Auto Fire")
+_0x81DB(_0xF243, _0xB202(),"Auto Shoot","Tire auto quand cible dans FOV",
+function() return _0x4E36.AutoShoot end, function(_0x7D77) _0x4E36.AutoShoot = _0x7D77 end)
+_0xDDC2(_0xF243, _0xB202(),"Auto Shoot Delay", 0.02, 1,
+function() return _0x4E36.AutoShootDelay end, function(_0x7D77) _0x4E36.AutoShootDelay = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Trigger Bot","Tire quand crosshair sur cible",
+function() return _0x4E36.TriggerBot end, function(_0x7D77) _0x4E36.TriggerBot = _0x7D77 end)
+_0x81DB(_0xF243, _0xB202(),"Aim Assist","Assiste l'aim",
+function() return _0x4E36.AimAssist end, function(_0x7D77) _0x4E36.AimAssist = _0x7D77 end)
+_0xDDC2(_0xF243, _0xB202(),"Aim Assist Strength", 0.05, 1,
+function() return _0x4E36.AimAssistStrength end, function(_0x7D77) _0x4E36.AimAssistStrength = _0x7D77 end)
+_0x6375(_0xF243, _0xB202(),"Hitbox")
+_0x81DB(_0xF243, _0xB202(),"Hitbox Expander","Agrandit les hitboxes",
+function() return _0x4E36.HitboxExpander end, function(_0x7D77) _0x4E36.HitboxExpander = _0x7D77 end)
+_0xDDC2(_0xF243, _0xB202(),"Hitbox Size", 1, 15,
+function() return _0x4E36.HitboxSize end, function(_0x7D77) _0x4E36.HitboxSize = _0x7D77 end)
+_0xDDC2(_0xF243, _0xB202(),"Hitbox Transparency", 0, 1,
+function() return _0x4E36.HitboxTransparency end, function(_0x7D77) _0x4E36.HitboxTransparency = _0x7D77 end)
+local _0x680F = _0x40A1("ESP","ESP")
+_0x1DD9 = 0
+_0x6375(_0x680F, _0xB202(),"ESP")
+_0x81DB(_0x680F, _0xB202(),"ESP Enable","Active l'ESP",
+function() return _0x4E36.ESP end, function(_0x7D77) _0x4E36.ESP = _0x7D77 end)
+_0x81DB(_0x680F, _0xB202(),"Box","Cadre stylé",
+function() return _0x4E36.ESPBox end, function(_0x7D77) _0x4E36.ESPBox = _0x7D77 end)
+_0x81DB(_0x680F, _0xB202(),"Name","Nom",
+function() return _0x4E36.ESPName end, function(_0x7D77) _0x4E36.ESPName = _0x7D77 end)
+_0x81DB(_0x680F, _0xB202(),"Health","Barre de vie",
+function() return _0x4E36.ESPHealth end, function(_0x7D77) _0x4E36.ESPHealth = _0x7D77 end)
+_0x81DB(_0x680F, _0xB202(),"Distance","Distance",
+function() return _0x4E36.ESPDistance end, function(_0x7D77) _0x4E36.ESPDistance = _0x7D77 end)
+_0x81DB(_0x680F, _0xB202(),"Tracer","Ligne",
+function() return _0x4E36.ESPTracer end, function(_0x7D77) _0x4E36.ESPTracer = _0x7D77 end)
+_0x81DB(_0x680F, _0xB202(),"Skeleton","Squelette RGB",
+function() return _0x4E36.ESPSkeleton end, function(_0x7D77) _0x4E36.ESPSkeleton = _0x7D77 end)
+_0x81DB(_0x680F, _0xB202(),"Chams","Fond coloré",
+function() return _0x4E36.ESPChams end, function(_0x7D77) _0x4E36.ESPChams = _0x7D77 end)
+_0x81DB(_0x680F, _0xB202(),"Head Dot","Point sur la tête",
+function() return _0x4E36.ESPHeadDot end, function(_0x7D77) _0x4E36.ESPHeadDot = _0x7D77 end)
+_0x81DB(_0x680F, _0xB202(),"Team Check","Ignore les alliés",
+function() return _0x4E36.ESPTeamCheck end, function(_0x7D77) _0x4E36.ESPTeamCheck = _0x7D77 end)
+_0x6375(_0x680F, _0xB202(),"Radar")
+_0x81DB(_0x680F, _0xB202(),"Radar","Minimap 2D",
+function() return _0x4E36.Radar end, function(_0x7D77) _0x4E36.Radar = _0x7D77 end)
+_0x6375(_0x680F, _0xB202(),"Effets")
+_0x81DB(_0x680F, _0xB202(),"Snow","Effet neige dans le menu",
+function() return _0x4E36.SnowEnabled end, function(_0x7D77) _0x4E36.SnowEnabled = _0x7D77 end)
+local _0xCA7A = _0x40A1("New","New")
+_0x1DD9 = 0
+_0x6375(_0xCA7A, _0xB202(),"Invisibilité (Y)")
+_0x81DB(_0xCA7A, _0xB202(),"Invisibilité","Touche Y : on/off",
+function() return _0x4E36.Invisible end,
+function(_0x7D77)
+_0x4E36.Invisible = _0x7D77
+_0x5F7E(_0x7D77)
+end)
+_0x6375(_0xCA7A, _0xB202(),"Infinite Jump (I)")
+_0x81DB(_0xCA7A, _0xB202(),"Infinite Jump","Touche I : on/off",
+function() return _0x4E36.InfJump end,
+function(_0x7D77) _0x4E36.InfJump = _0x7D77 end)
+_0x6375(_0xCA7A, _0xB202(),"Speed Boost")
+_0x81DB(_0xCA7A, _0xB202(),"Speed Boost","48 de vitesse",
+function() return _0x4E36.SpeedBoost end,
+function(_0x7D77)
+_0x4E36.SpeedBoost = _0x7D77
+_0xF485(_0x7D77)
+end)
+_0x6375(_0xCA7A, _0xB202(),"Select (N)")
+_0x81DB(_0xCA7A, _0xB202(),"Select","Touche N : sauvegarde les coéquipiers à 5m",
+function() return _0x4E36.SelectActive end,
+function(_0x7D77)
+_0xE596(_0x7D77)
+end)
+_0x6375(_0xCA7A, _0xB202(),"Fall Player (B)")
+_0x81DB(_0xCA7A, _0xB202(),"Fall Player","Touche B : on/off · utilise Select",
+function() return _0x4E36.FallPlayer end,
+function(_0x7D77)
+_0xEC50(_0x7D77)
+end)
+_0xDDC2(_0xCA7A, _0xB202(),"Distance", 2, 15,
+function() return _0x4E36.FallDistance end, function(_0x7D77) _0x4E36.FallDistance = _0x7D77 end)
+_0x6375(_0xCA7A, _0xB202(),"Fall Player · Reset (C)")
+_0x434A(_0xCA7A, _0xB202(),"Reset Fall Player","Touche C : force le reset",
+_0x6CAF.Danger, function()
+_0x4AED()
+_0x21B8()
+end)
+local _0xF07C = _0x40A1("Outfit","Outfit")
+_0x1DD9 = 0
+_0x6375(_0xF07C, _0xB202(),"Tenues prédéfinies")
+for _, out in ipairs(_0x5A06) do
+_0x434A(_0xF07C, _0xB202(), out.name,"Appliquer la tenue ".. out.name,
+_0x6CAF.Accent, function()
+_0xFFF2(out.userId)
+_0x4E36.CurrentOutfit = out.name
+end)
+end
+_0x6375(_0xF07C, _0xB202(),"Tenue custom (ID joueur Roblox)")
+local _0x7C36 = _0x93D3("TextBox", {
+Size = UDim2.new(1, 0, 0, 42),
+BackgroundColor3 = _0x6CAF.BgInput,
+BackgroundTransparency = 0.1,
+BorderSizePixel = 0,
+Text ="",
+PlaceholderText ="Entre un ID de joueur (ex: 1)",
+TextColor3 = _0x6CAF.Text,
+PlaceholderColor3 = _0x6CAF.TextFaint,
+Font = Enum.Font.Gotham,
+TextSize = 12,
+ClearTextOnFocus = false,
+LayoutOrder = _0xB202(),
+Parent = _0xF07C,
+})
+_0x6EA5(_0x7C36, 10)
+_0xFF3F(_0x7C36, _0x6CAF.BorderSoft, 1, 0.3)
+_0x434A(_0xF07C, _0xB202(),"Appliquer cet ID","Applique la tenue du joueur correspondant",
+_0x6CAF.Accent2, function()
+_0x01BA(_0x7C36.Text)
+end)
+_0x6375(_0xF07C, _0xB202(),"Sauvegarde")
+_0x434A(_0xF07C, _0xB202(),"Sauvegarder ma tenue","Enregistre ta tenue actuelle",
+_0x6CAF.Success, function()
+_0x05D2()
+end)
+_0x434A(_0xF07C, _0xB202(),"Charger ma tenue sauvegardée","Applique ta tenue sauvegardée",
+_0x6CAF.Warn, function()
+_0x28D4()
+end)
+_0x434A(_0xF07C, _0xB202(),"Reset tenue","Remet ta tenue d'origine",
+_0x6CAF.Danger, function()
+_0x8F0C()
+end)
+local _0xC1A5 = _0x40A1("Misc","Misc")
+_0x1DD9 = 0
+_0x6375(_0xC1A5, _0xB202(),"Vision")
+_0x81DB(_0xC1A5, _0xB202(),"FOV Changer","Modifie le FOV",
+function() return _0x4E36.FOVChanger end, function(_0x7D77) _0x4E36.FOVChanger = _0x7D77 end)
+_0xDDC2(_0xC1A5, _0xB202(),"FOV Value", 30, 160,
+function() return _0x4E36.FOVValue end, function(_0x7D77) _0x4E36.FOVValue = _0x7D77 end)
+_0x6375(_0xC1A5, _0xB202(),"Movement")
+_0x81DB(_0xC1A5, _0xB202(),"Speed Hack","Vitesse modifiée",
+function() return _0x4E36.SpeedHack end, function(_0x7D77) _0x4E36.SpeedHack = _0x7D77 end)
+_0xDDC2(_0xC1A5, _0xB202(),"Speed Value", 16, 200,
+function() return _0x4E36.SpeedValue end, function(_0x7D77) _0x4E36.SpeedValue = _0x7D77 end)
+_0x81DB(_0xC1A5, _0xB202(),"Infinite Jump","Saut infini",
+function() return _0x4E36.InfJump end, function(_0x7D77) _0x4E36.InfJump = _0x7D77 end)
+_0x81DB(_0xC1A5, _0xB202(),"No Collision","Traverse les murs",
+function() return _0x4E36.Noclip end, function(_0x7D77) _0x4E36.Noclip = _0x7D77 end)
+_0x6375(_0xC1A5, _0xB202(),"Info")
+_0x434A(_0xC1A5, _0xB202(),"Destroy Menu","Supprime le menu",
+_0x6CAF.Danger, function()
+if _0xE18C.Gui then _0xE18C.Gui:Destroy() end
+if _0xE21A.RadarGui then _0xE21A.RadarGui:Destroy() end
+if _0xE21A.FOVCircle then _0xE21A.FOVCircle:Remove() end
+end)
+_0xA794.Size = UDim2.new(0, 0, 0, 0)
+_0x11A7:Create(_0xA794, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+Size = UDim2.new(0, 900, 0, 560),
+}):Play()
+end
+local function _0x6495()
+for _0x59C6, _0x7871 in ipairs(_0xE18C.NavItems) do
+if _0x7871.card then
+if _0x59C6 == _0xE18C.SelectedIndex then
+_0x7871.card.BackgroundColor3 = _0x6CAF.BgHover
+_0x7871.card.BackgroundTransparency = 0.05
+if _0x7871.card:FindFirstChildOfClass("UIStroke") then
+_0x7871.card:FindFirstChildOfClass("UIStroke").Color = _0x6CAF.Accent
+_0x7871.card:FindFirstChildOfClass("UIStroke").Transparency = 0.2
+end
+else
+_0x7871.card.BackgroundColor3 = _0x6CAF.BgCard
+_0x7871.card.BackgroundTransparency = 0.15
+if _0x7871.card:FindFirstChildOfClass("UIStroke") then
+_0x7871.card:FindFirstChildOfClass("UIStroke").Color = _0x6CAF.BorderSoft
+_0x7871.card:FindFirstChildOfClass("UIStroke").Transparency = 0.3
+end
+end
+end
+end
+end
+local function _0x21B8()
+for _, _0x7871 in ipairs(_0xE18C.NavItems) do
+if _0x7871.refresh then
+pcall(function() _0x7871.refresh() end)
+end
+end
+end
+local function _0x5122()
+local _0x9810 = {}
+local _0xDFCA = _0xE18C.Pages[_0xE18C.CurrentPage]
+if not _0xDFCA then return _0x9810 end
+for _, _0x7871 in ipairs(_0xE18C.NavItems) do
+if _0x7871.card and _0x7871.card.Parent == _0xDFCA.list then
+_0x9810[#_0x9810+1] = _0x7871
+end
+end
+return _0x9810
+end
+local function _0xC829()
+local _0x9810 = _0x5122()
+if #_0x9810 == 0 then return end
+for _0x59C6, _0xDBF2 in ipairs(_0x9810) do
+if _0xDBF2 == _0xE18C.NavItems[_0xE18C.SelectedIndex] then
+_0xE18C.SelectedIndex = _0xE18C.SelectedIndex - 1
+if _0xE18C.SelectedIndex < 1 then _0xE18C.SelectedIndex = 1 end
+_0x6495()
+return
+end
+end
+_0xE18C.SelectedIndex = 1
+_0x6495()
+end
+local function _0xE9D3()
+local _0x9810 = _0x5122()
+if #_0x9810 == 0 then return end
+for _0x59C6, _0xDBF2 in ipairs(_0x9810) do
+if _0xDBF2 == _0xE18C.NavItems[_0xE18C.SelectedIndex] then
+_0xE18C.SelectedIndex = _0xE18C.SelectedIndex + 1
+if _0xE18C.SelectedIndex > #_0xE18C.NavItems then _0xE18C.SelectedIndex = #_0xE18C.NavItems end
+_0x6495()
+return
+end
+end
+_0xE18C.SelectedIndex = 1
+_0x6495()
+end
+local function _0x1CEE()
+local _0x7871 = _0xE18C.NavItems[_0xE18C.SelectedIndex]
+if not _0x7871 then return end
+if _0x7871.setter and _0x7871.getter then
+_0x7871.setter(not _0x7871.getter())
+if _0x7871.refresh then _0x7871.refresh() end
+elseif _0x7871.action then
+pcall(_0x7871.action)
+end
+end
+local function _0xE124(dir)
+local _0x7871 = _0xE18C.NavItems[_0xE18C.SelectedIndex]
+if not _0x7871 then return end
+if _0x7871.step then
+pcall(_0x7871.step, dir)
+end
+end
+local function _0x1C89()
+local _0x2342 = 1
+for _0x59C6, _0xEF30 in ipairs(_0xE18C.PageOrder) do
+if _0xEF30 == _0xE18C.CurrentPage then _0x2342 = _0x59C6; break end
+end
+_0x2342 = _0x2342 + 1
+if _0x2342 > #_0xE18C.PageOrder then _0x2342 = 1 end
+_0xE18C.CurrentPage = _0xE18C.PageOrder[_0x2342]
+for _0xEF30, fn in pairs(_0xE18C.NavButtons) do fn(_0xEF30 == _0xE18C.CurrentPage) end
+for _0xB706, pg in pairs(_0xE18C.Pages) do pg.frame.Visible = (_0xB706 == _0xE18C.CurrentPage) end
+_0xE18C.SelectedIndex = 1
+_0x6495()
+end
+local function _0xB55C()
+local _0x2342 = 1
+for _0x59C6, _0xEF30 in ipairs(_0xE18C.PageOrder) do
+if _0xEF30 == _0xE18C.CurrentPage then _0x2342 = _0x59C6; break end
+end
+_0x2342 = _0x2342 - 1
+if _0x2342 < 1 then _0x2342 = #_0xE18C.PageOrder end
+_0xE18C.CurrentPage = _0xE18C.PageOrder[_0x2342]
+for _0xEF30, fn in pairs(_0xE18C.NavButtons) do fn(_0xEF30 == _0xE18C.CurrentPage) end
+for _0xB706, pg in pairs(_0xE18C.Pages) do pg.frame.Visible = (_0xB706 == _0xE18C.CurrentPage) end
+_0xE18C.SelectedIndex = 1
+_0x6495()
+end
+_0x7960.InputBegan:Connect(function(input, gp)
+if gp then return end
+if input.KeyCode == Enum.KeyCode.Y then
+_0x4E36.Invisible = not _0x4E36.Invisible
+_0x5F7E(_0x4E36.Invisible)
+_0x21B8()
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Invisibilité",
+Text = _0x4E36.Invisible and"ACTIVÉ"or"DÉSACTIVÉ",
+Duration = 2,
+})
+end)
+return
+end
+if input.KeyCode == Enum.KeyCode.I then
+_0x4E36.InfJump = not _0x4E36.InfJump
+_0x21B8()
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Infinite Jump",
+Text = _0x4E36.InfJump and"ACTIVÉ"or"DÉSACTIVÉ",
+Duration = 2,
+})
+end)
+return
+end
+if input.KeyCode == Enum.KeyCode.N then
+_0x8F65()
+_0x21B8()
+return
+end
+if input.KeyCode == Enum.KeyCode.B then
+_0xF912()
+_0x21B8()
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="Fall Player",
+Text = _0x4E36.FallPlayer and"ACTIVÉ"or"DÉSACTIVÉ",
+Duration = 2,
+})
+end)
+return
+end
+if input.KeyCode == Enum.KeyCode.C then
+_0x4AED()
+_0x21B8()
+return
+end
+if input.KeyCode == Enum.KeyCode.RightShift then
+_0xE18C.Visible = not _0xE18C.Visible
+if _0xE18C.Main then
+if _0xE18C.Visible then
+_0xE18C.Main.Visible = true
+_0xE18C.Main.Size = UDim2.new(0, 0, 0, 0)
+_0x11A7:Create(_0xE18C.Main, TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+Size = UDim2.new(0, 900, 0, 560),
+}):Play()
+else
+local _0xDB81 = _0x11A7:Create(_0xE18C.Main, TweenInfo.new(0.2), {
+Size = UDim2.new(0, 0, 0, 0),
+})
+_0xDB81:Play()
+_0xDB81.Completed:Connect(function()
+if _0xE18C.Main then _0xE18C.Main.Visible = false end
+end)
+end
+end
+return
+end
+if not _0xE18C.Visible then return end
+if input.KeyCode == Enum.KeyCode.Up then
+_0xC829()
+elseif input.KeyCode == Enum.KeyCode.Down then
+_0xE9D3()
+elseif input.KeyCode == Enum.KeyCode.Left then
+_0xE124(-1)
+elseif input.KeyCode == Enum.KeyCode.Right then
+_0xE124(1)
+elseif input.KeyCode == Enum.KeyCode.Return or input.KeyCode == Enum.KeyCode.KeypadEnter then
+_0x1CEE()
+elseif input.KeyCode == Enum.KeyCode.Space then
+_0x1CEE()
+elseif input.KeyCode == Enum.KeyCode.Backspace then
+_0xE18C.CurrentPage ="Combat"for _0xEF30, fn in pairs(_0xE18C.NavButtons) do fn(_0xEF30 =="Combat") end
+for _0xB706, pg in pairs(_0xE18C.Pages) do pg.frame.Visible = (_0xB706 =="Combat") end
+_0xE18C.SelectedIndex = 1
+_0x6495()
+elseif input.KeyCode == Enum.KeyCode.Q then
+_0xB55C()
+elseif input.KeyCode == Enum.KeyCode.E then
+_0x1C89()
+end
+end)
+_0x691D.CharacterAdded:Connect(function()
+task.wait(0.5)
+_0xF1D8 = nil
+_0x0861 = nil
+_0xCE71 = nil
+_0x4E36.AimbotLockedTarget = nil
+if _0xB686.isInvisible then
+_0xB686.isInvisible = false
+_0x4E36.Invisible = false
+if _0xB686.invisChair then
+pcall(function() _0xB686.invisChair:Destroy() end)
+_0xB686.invisChair = nil
+end
+local _0xD0DC = workspace:FindFirstChild("invischair")
+if _0xD0DC then pcall(function() _0xD0DC:Destroy() end) end
+end
+if _0xB686.isSpeedBoosted then
+_0xB686.isSpeedBoosted = false
+_0x4E36.SpeedBoost = false
+end
+_0xCC27.lastSide = 0
+_0xCC27.currentSide = 1
+if _0xCC27.active or _0x53FD then
+_0xCC27.generation = _0xCC27.generation + 1
+_0x14B5()
+_0x4E36.FallPlayer = false
+end
+_0x6C42()
+_0x806F()
+end)
+_0x1475.PlayerRemoving:Connect(function(plr)
+if _0xCC27.target == plr then
+_0xCC27.target = nil
+end
+if _0x30B5.allies[plr.Name] then
+_0x30B5.allies[plr.Name] = nil
+end
+if _0x30B5.alliesIds[plr.UserId] then
+_0x30B5.alliesIds[plr.UserId] = nil
+end
+if _0x4E36.AimbotLockedTarget == plr then
+_0x4E36.AimbotLockedTarget = nil
+_0xF1D8 = nil
+end
+_0x5BDA(plr)
+_0xE21A.ESPObjs[plr] = nil
+end)
+pcall(function()
+local _0x04D6 = _0x4106:FindFirstChild("ZeyProject")
+if _0x04D6 then _0x04D6:Destroy() end
+local _0x260C = _0x4106:FindFirstChild("VRivMenu")
+if _0x260C then _0x260C:Destroy() end
+local _0xFCB5 = _0x4106:FindFirstChild("ZeyRadar")
+if _0xFCB5 then _0xFCB5:Destroy() end
+local _0xEE2A = _0x4106:FindFirstChild("VRivRadar")
+if _0xEE2A then _0xEE2A:Destroy() end
+end)
+_0x2DBD()
+_0x1C26()
+_0x6495()
+pcall(function()
+_0xC39B:SetCore("SendNotification", {
+Title ="ZeyProject v1.1",
+Text ="Y invis · I infjump · N select · B fall · C reset",
+Duration = 6,
+})
+end)
